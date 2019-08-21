@@ -7,9 +7,11 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
+    NavLink,
 } from 'reactstrap';
 import styled from 'styled-components';
 import { IoIosGlobe } from "react-icons/io";
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
     & > nav {
@@ -32,37 +34,26 @@ const Label = styled.label`
     }
 `
 
-export default class Header extends Component {
-    constructor(props) {
-        super(props);
 
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-    render() {
-        return (
-            <Wrapper>
-                <Navbar light expand="md">
-                    <Container>
-                        <NavbarBrand href="/">NAX Staking</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle} />
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <Label><IoIosGlobe /> 中文</Label>
-                                </NavItem>
-                            </Nav>
-                        </Collapse>
-                    </Container>
-                </Navbar>
-            </Wrapper>
-        );
-    }
+export default function Header() {
+
+    const { t, i18n } = useTranslation();
+
+    return (
+        <Wrapper>
+            <Navbar light expand="md">
+                <Container>
+                    <NavbarBrand href="/">NAX Staking</NavbarBrand>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            {/* <NavLink href="#" onClick={() => { i18n.changeLanguage('zh-CN') }}><Label><IoIosGlobe /> 中文</Label></NavLink> */}
+                            <button onClick={() => i18n.changeLanguage('zh-CN')}>zh-CN</button>
+                            <button onClick={() => i18n.changeLanguage('en')}>en</button>
+                        </NavItem>
+                    </Nav>
+                </Container>
+            </Navbar>
+        </Wrapper>
+    );
+
 }

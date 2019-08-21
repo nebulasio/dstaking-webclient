@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-    border-bottom: 1px solid #E6E7F0;
+    border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `
 const TabList = styled.div`
     display: flex;
@@ -17,12 +17,12 @@ const TabList = styled.div`
         padding: 24px 0;
 
         &.selected {
-            color: #6766FF;
-            border-bottom: 2px solid #6766FF;
+            color: ${(props) => props.theme.primaryColor};
+            border-bottom: 2px solid ${(props) => props.theme.primaryColor};
         }
 
         &:hover {
-            color: #6766FF;
+            color: ${(props) => props.theme.primaryColor};
             text-decoration: none;
         }
     }
