@@ -2,6 +2,7 @@ import React, { Component, Suspense } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import App from 'components/app';
 import Online from "./online"
+import Offline from "./offline"
 
 // loading component for suspense fallback
 const Loader = () => (
@@ -17,6 +18,7 @@ export default class Routes extends Component {
                     <App>
                         {this.props.children}
                         <Route path="/online/" component={Online} />
+                        <Route path="/offline/" component={Offline} />
                     </App>
                 </Router>
             </Suspense>

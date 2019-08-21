@@ -2,9 +2,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { Button, Form, FormGroup, Label, InputGroup, Input, InputGroupAddon, InputGroupText, CustomInput, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
-import QRCode from 'qrcode.react'
+import QRCode from 'qrcode.react';
+import StakingQuery from 'components/common/staking_query'
+import StakingParam from 'components/common/staking_param'
 
 const Wrapper = styled.div`
+    margin: 40px 135px;
+
     .form-group {
         margin-bottom: 2rem;
         & > label {
@@ -13,84 +17,6 @@ const Wrapper = styled.div`
             font-weight:600;
         }
     
-        .input-group > input[name=input-staking-status-query] {
-            border: none;
-            border-radius: 0;
-            border-bottom: 1px solid ${(props) => props.theme.borderColor};
-
-            &::placeholder {
-                color: ${(props) => props.theme.inputPlaceholderColor};
-            }
-    
-            &:focus {
-                box-shadow: none;
-            }
-        }
-    
-        .input-group-append > button {
-            border: none;
-            border-radius: 0;
-            border-bottom: 1px solid ${(props) => props.theme.borderColor};
-            background-color: #fff;
-            color: ${(props) => props.theme.primaryColor};
-            font-size:14px;
-            font-family:PingFangSC;
-            font-weight:500;
-    
-            &:focus {
-                box-shadow: none;
-            }
-    
-            &:active {
-                box-shadow: none;
-                border: none;
-                border-radius: 0;
-                border-color: ${(props) => props.theme.borderColor} !important;
-                border-bottom: 1px solid ${(props) => props.theme.borderColor};
-                background-color: #fff !important;
-                color: ${(props) => props.theme.primaryColor} !important;
-            }
-    
-            &:active:focus {
-                box-shadow: none !important;
-            }
-        }
-    
-        select {
-            border-radius: 0;
-            height: ${(props) => props.theme.inputHeight};
-    
-            &:focus {
-                box-shadow: none !important;
-                border-color: #ccc;
-            }
-    
-        }
-    
-        .form-row {
-            input[type=text] {
-                height: ${(props) => props.theme.inputHeight};
-                border-radius: 0;
-                border-right: none;
-
-                &::placeholder {
-                    color: ${(props) => props.theme.inputPlaceholderColor};
-                }
-    
-                &:focus {
-                    box-shadow: none !important;
-                    border-color: #ccc;
-                }
-            }
-    
-            .input-group-append {
-                .input-group-text {
-                    border-radius: 0;
-                    background-color: #fff;
-                }
-            } 
-        } 
-
         .custom-control {
             display: inline-block;
             margin-right: 1rem;
@@ -166,33 +92,6 @@ const QRCodeText = styled.div`
     }
 `
 
-const ResultWrapper = styled.div`
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin-top: 20px;
-    padding: 18px 14px;
-    background-color: ${(props) => props.theme.resultBackgroundColor};
-    height: 56px;
-`
-
-const ResultItem = styled.div`
-    display: flex;
-    label {
-        color: #666666;
-        font-size:14px;
-        margin: 0 8px 0 0;
-    }
-
-    p {
-        color: #000;
-        font-weight:500;
-        font-size:14px;
-        margin: 0;
-    }
-`
-
-
-
 function Online() {
 
     const { t, i18n } = useTranslation();
@@ -202,44 +101,12 @@ function Online() {
             <Form>
                 <FormGroup>
                     <Label for="input-staking-status-query">质押状态查询</Label>
-                    <InputGroup>
-                        <Input type="text" name="input-staking-status-query" id="input-staking-status-query" placeholder="输入钱包地址" />
-                        <InputGroupAddon addonType="append"><Button onClick={(e) => { e.preventDefault() }}>查询</Button></InputGroupAddon>
-                    </InputGroup>
-
-                    <ResultWrapper>
-                        <ResultItem>
-                            <label>NAS余额</label>
-                            <p>0 NAS</p>
-                        </ResultItem>
-
-                        <ResultItem>
-                            <label>已质押</label>
-                            <p>0 NAS</p>
-                        </ResultItem>
-                    </ResultWrapper>
-
-
+                    <StakingQuery />
                 </FormGroup>
 
                 <FormGroup>
                     <Label>质押</Label>
-                    <Row form>
-                        <Col md={6}>
-                            <Input type="select" name="select-staking">
-                                <option>质押</option>
-                                <option>取消质押</option>
-                            </Input>
-                        </Col>
-                        <Col md={6}>
-                            <InputGroup>
-                                <Input type="text" name="input-staking-nas" placeholder="输入要质押的数量" />
-                                <InputGroupAddon addonType="append">
-                                    <InputGroupText>NAS</InputGroupText>
-                                </InputGroupAddon>
-                            </InputGroup>
-                        </Col>
-                    </Row>
+                    <StakingParam />
                 </FormGroup>
 
                 <FormGroup>

@@ -10,9 +10,7 @@ const Wrapper = styled.div`
     border:1px solid rgba(239,239,239,1);
 `
 
-const Inner = styled.div`
-    margin: 80px 135px;
-`
+
 
 export default class MainContainer extends Component {
     render() {
@@ -21,9 +19,7 @@ export default class MainContainer extends Component {
                 <Container>
                     <Wrapper>
                         <Tab />
-                        <Inner>
-                            {this.props.children}
-                        </Inner>
+                        {this.props.children}
                     </Wrapper>
                 </Container>
             </div>
