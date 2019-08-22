@@ -8,6 +8,7 @@ const InputText = styled.input`
 
     &:focus {
         box-shadow: none;
+        outline: 0;
     }
 
     &::placeholder {
@@ -28,6 +29,7 @@ const Textarea = styled.textarea`
 
     &:focus {
         box-shadow: none;
+        outline: 0;
     }
 
     &::placeholder {

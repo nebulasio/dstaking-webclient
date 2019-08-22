@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -28,16 +29,15 @@ const TabList = styled.div`
     }
 `
 
+export default function Tab() {
+    const { t, i18n } = useTranslation();
 
-export default class Tab extends Component {
-    render() {
-        return (
-            <Wrapper>
-                <TabList>
-                    <NavLink to="/online/" activeClassName="selected">在线质押</NavLink>
-                    <NavLink to="/offline/" activeClassName="selected">离线质押</NavLink>
-                </TabList>
-            </Wrapper>
-        )
-    }
+    return (
+        <Wrapper>
+            <TabList>
+                <NavLink to="/online/" activeClassName="selected">{t('online-staking')}</NavLink>
+                <NavLink to="/offline/" activeClassName="selected">离线质押</NavLink>
+            </TabList>
+        </Wrapper>
+    )
 }

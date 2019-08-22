@@ -34,8 +34,25 @@ const Label = styled.label`
     }
 `
 
+const ButtonText = styled.button`
+    background: #fff !important;
+    border: none;
+    color:#333;
+    font-size:14px;
 
-export default function Header() {
+    svg {
+        margin-bottom: 2px;
+        margin-right: 4px;
+    }
+
+    &:focus {
+        box-shadow: none;
+        outline: 0;
+    }
+`
+
+
+function Header() {
 
     const { t, i18n } = useTranslation();
 
@@ -46,9 +63,8 @@ export default function Header() {
                     <NavbarBrand href="/">NAX Staking</NavbarBrand>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            {/* <NavLink href="#" onClick={() => { i18n.changeLanguage('zh-CN') }}><Label><IoIosGlobe /> 中文</Label></NavLink> */}
-                            <button onClick={() => i18n.changeLanguage('zh-CN')}>zh-CN</button>
-                            <button onClick={() => i18n.changeLanguage('en')}>en</button>
+                            <ButtonText onClick={() => i18n.changeLanguage('zh-CN')}> <IoIosGlobe />中文</ButtonText>
+                            <ButtonText onClick={() => i18n.changeLanguage('en')}> <IoIosGlobe />EN</ButtonText>
                         </NavItem>
                     </Nav>
                 </Container>
@@ -57,3 +73,5 @@ export default function Header() {
     );
 
 }
+
+export default Header;
