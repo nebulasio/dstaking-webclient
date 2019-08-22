@@ -69,7 +69,7 @@ class Offline extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            activeTab: '3'
+            activeTab: '1'
         };
     }
 
@@ -113,7 +113,7 @@ class Offline extends Component {
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1">
                         <StatusTitle>Online Computer</StatusTitle>
-                        <StakingQuery />
+                        <StakingQuery type="offline" />
                         <Group>
                             <ButtonOutline>去生成交易</ButtonOutline>
                         </Group>

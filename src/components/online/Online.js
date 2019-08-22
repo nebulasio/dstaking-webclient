@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { useTranslation } from 'react-i18next';
 import { Button, Form, FormGroup, Label, InputGroup, Input, InputGroupAddon, InputGroupText, CustomInput, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
@@ -12,6 +12,7 @@ const Wrapper = styled.div`
     .form-group {
         margin-bottom: 2rem;
         & > label {
+            display: block;
             font-size:20px;
             font-family:PingFangSC;
             font-weight:600;
@@ -92,45 +93,135 @@ const QRCodeText = styled.div`
     }
 `
 
-function Online() {
+const min_staking_amount = 5;
+const staking_proxy_contract = process.env.REACT_APP_STAKING_PROXY_CONTRACT;
 
-    const { t, i18n } = useTranslation();
+class Online extends Component {
 
-    return (
-        <Wrapper>
-            <Form>
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            stakingType: "",
+            stakingAmount: min_staking_amount,
+            stakingSelect: "1", // 1:staking, 0:cancel staking
+            showQrcode: false,
+        }
+    }
+
+    handleStakingType = e => {
+        this.setState({
+            stakingType: e.target.id.split("radio-")[1]
+        });
+    }
+
+
+    handleChangeCustomStaking = e => {
+
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    isDisableSubmit() {
+
+        const { stakingAmount, stakingSelect } = this.state;
+
+        if (stakingSelect === "0") {
+            return false;
+        }
+
+        if (stakingAmount < min_staking_amount) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        this.setState({
+            showQrcode: true
+        });
+    }
+
+
+    render() {
+
+        const { stakingType, stakingSelect, showQrcode } = this.state;
+
+        // custom stking nas amount, cancel staking
+        const CustomStaking =
+            <>
                 <FormGroup>
-                    <Label for="input-staking-status-query">质押状态查询</Label>
-                    <StakingQuery />
+                    <StakingParam {...this.state} onChange={this.handleChangeCustomStaking} minStaking={min_staking_amount} />
                 </FormGroup>
 
-                <FormGroup>
-                    <Label>质押</Label>
-                    <StakingParam />
-                </FormGroup>
+                {stakingSelect === "1" &&
+                    <FormGroup>
+                        <Button color="primary" size="lg" disabled={this.isDisableSubmit()} block onClick={this.handleSubmit}>质押</Button>
+                    </FormGroup>
+                }
 
-                <FormGroup>
-                    <CustomInput type="radio" id="radio-nas-nano" name="radio-staking-start" label="NAS nano" />
-                    <CustomInput type="radio" id="radio-nas-ext" name="radio-staking-start" label="NAS chrome extension" />
-                </FormGroup>
+                {showQrcode &&
+                    <QRCodeWrapper>
+                        <QRCode size={140} value="http://facebook.github.io/react/" />
+                        <QRCodeText>
+                            <h3>请使用 Nas nano pro 扫码</h3>
+                            <p>注意调用的钱包地址和查询地址的一致性</p>
+                            <a href="hhttps://nano.nebulas.io/">下载 Nas nano pro ></a>
+                        </QRCodeText>
+                    </QRCodeWrapper>
+                }
 
-                <FormGroup>
-                    <Button color="primary" size="lg" block onClick={e => { e.preventDefault() }}>质押</Button>
-                    <Button color="secondary" size="lg" disabled block onClick={e => { e.preventDefault() }}>质押</Button>
-                </FormGroup>
+            </>
 
-                <QRCodeWrapper>
-                    <QRCode size={140} value="http://facebook.github.io/react/" />
-                    <QRCodeText>
-                        <h3>请使用 Nas nano pro 扫码</h3>
-                        <p>注意调用的钱包地址和查询地址的一致性</p>
-                        <a href="hhttps://nano.nebulas.io/">下载 Nas nano pro ></a>
-                    </QRCodeText>
-                </QRCodeWrapper>
+        const ThirdStaking = <>
+            <label>转账地址: {staking_proxy_contract}</label>
+            <label>转账金额: 0 NAS</label>
 
-            </Form>
-        </Wrapper>
-    )
+            <QRCodeWrapper>
+                <QRCode size={140} value={staking_proxy_contract} />
+                <QRCodeText>
+                    <h3>请使用三方钱包扫码</h3>
+                    <a href="https://nebulas.io/wallets.html">下载三方钱包 ></a>
+                </QRCodeText>
+            </QRCodeWrapper>
+        </>
+
+        const showStakingPanel = () => {
+            if (stakingType === "nas-nano" || stakingType === "nas-ext") {
+                return CustomStaking;
+            } else if (stakingType === "third-wallet") {
+                return ThirdStaking;
+            } else {
+                return null;
+            }
+        }
+
+        return (
+            <Wrapper>
+                <Form>
+                    <FormGroup>
+                        <Label>质押状态查询</Label>
+                        <StakingQuery />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label>质押方式</Label>
+                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-nano" name="radio-staking-start" label="NAS nano" />
+                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-ext" name="radio-staking-start" label="NAS chrome extension" />
+                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-third-wallet" name="radio-staking-start" label="三方钱包" />
+                    </FormGroup>
+
+                    {showStakingPanel()}
+
+                </Form>
+            </Wrapper>
+        )
+    }
 
 }
 

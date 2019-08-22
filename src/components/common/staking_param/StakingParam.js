@@ -38,24 +38,30 @@ const Wrapper = styled.div`
     }
 `
 
-function StakingParam() {
+function StakingParam(props) {
+
+    const { stakingAmount, stakingSelect, minStaking } = props;
+
     return (
         <Wrapper>
             <Row form>
                 <Col md={6}>
-                    <Input type="select" name="select-staking">
-                        <option>质押</option>
-                        <option>取消质押</option>
+                    <Input type="select" name="stakingSelect" onChange={props.onChange}>
+                        <option value="1">质押</option>
+                        <option value="0">取消质押</option>
                     </Input>
                 </Col>
-                <Col md={6}>
-                    <InputGroup>
-                        <Input type="text" name="input-staking-nas" placeholder="输入要质押的数量" />
-                        <InputGroupAddon addonType="append">
-                            <InputGroupText>NAS</InputGroupText>
-                        </InputGroupAddon>
-                    </InputGroup>
-                </Col>
+                {stakingSelect === "1" ?
+                    <Col md={6}>
+                        <InputGroup>
+                            <Input type="text" name="stakingAmount" placeholder={`最小质押` + minStaking} value={stakingAmount} onChange={props.onChange} />
+                            <InputGroupAddon addonType="append">
+                                <InputGroupText>NAS</InputGroupText>
+                            </InputGroupAddon>
+                        </InputGroup>
+                    </Col> : null
+                }
+
             </Row>
         </Wrapper>
     );

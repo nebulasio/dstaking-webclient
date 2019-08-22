@@ -2,8 +2,15 @@ import React, { Component } from 'react'
 import { Button, InputGroup, Input, InputGroupAddon } from 'reactstrap';
 import styled from 'styled-components';
 import { Neb } from 'utils';
+import { Spinner } from 'reactstrap';
 
 const Wrapper = styled.div`
+    .spinner-grow {
+        margin: 20px auto;
+        text-align: center;
+        display: block;
+    }
+
     .input-group > input[type=text] {
         border: none;
         border-radius: 0;
@@ -50,7 +57,7 @@ const Wrapper = styled.div`
 
 const ResultWrapper = styled.div`
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(3, auto);
     margin-top: 20px;
     padding: 18px 14px;
     background-color: ${(props) => props.theme.resultBackgroundColor};
@@ -74,7 +81,7 @@ const ResultItem = styled.div`
 `
 
 
-export default class StakingQuery extends Component {
+class StakingQuery extends Component {
 
     constructor(props) {
         super(props);
@@ -84,6 +91,7 @@ export default class StakingQuery extends Component {
             nasBalance: "",
             nasStaking: "",
             nonce: "",
+            loading: false,
         }
 
         this.neb = new Neb();
@@ -102,7 +110,16 @@ export default class StakingQuery extends Component {
         console.log(nasAddr);
 
         try {
+
+            this.setState({
+                loading: true
+            });
+
             const { nasBalance, nasStaking, nonce } = await this.neb.getStakingStatus(nasAddr);
+
+            this.setState({
+                loading: false
+            });
 
             this.setState({
                 nasBalance,
@@ -119,7 +136,36 @@ export default class StakingQuery extends Component {
 
     render() {
 
-        const { nasAddr, nasBalance, nasStaking } = this.state;
+        const { nasAddr, nasBalance, nasStaking, nonce, loading } = this.state;
+        const { type } = this.props;
+
+        const showResult = () => {
+            if (nasBalance && nasStaking) {
+                return (
+                    <ResultWrapper>
+                        <ResultItem>
+                            <label>NAS余额</label>
+                            <p>{nasBalance} NAS</p>
+                        </ResultItem>
+
+                        <ResultItem>
+                            <label>已质押</label>
+                            <p>{nasStaking} NAS</p>
+                        </ResultItem>
+
+                        {type === "offline" &&
+                            <ResultItem>
+                                <label>Nonce</label>
+                                <p>{nonce}</p>
+                            </ResultItem>
+                        }
+
+                    </ResultWrapper>
+                );
+            } else {
+                return null;
+            }
+        }
 
         return (
             <Wrapper>
@@ -128,19 +174,16 @@ export default class StakingQuery extends Component {
                     <InputGroupAddon addonType="append"><Button onClick={this.handleQuery}>查询</Button></InputGroupAddon>
                 </InputGroup>
 
-                <ResultWrapper>
-                    <ResultItem>
-                        <label>NAS余额</label>
-                        <p>{nasBalance} NAS</p>
-                    </ResultItem>
+                {loading ? <Spinner type="grow" color="light" /> : showResult()}
 
-                    <ResultItem>
-                        <label>已质押</label>
-                        <p>{nasStaking} NAS</p>
-                    </ResultItem>
-                </ResultWrapper>
             </Wrapper>
         );
     }
 
 }
+
+StakingQuery.defaultProps = {
+    type: "online" // online, offline
+}
+
+export default StakingQuery;

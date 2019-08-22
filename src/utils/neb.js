@@ -70,8 +70,8 @@ class Neb {
 
             return {
                 nonce: accountState.nonce,
-                nasBalance: this._toNas(accountState.balance),
-                nasStaking: Number(stakingSum),
+                nasBalance: this._toNas(accountState.balance).toLocaleString(),
+                nasStaking: Number(stakingSum).toLocaleString(),
                 currentStaking,
             };
 
