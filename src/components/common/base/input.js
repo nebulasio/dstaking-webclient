@@ -5,6 +5,12 @@ const InputText = styled.input`
     border:  1px solid ${(props) => props.theme.borderColor};
     padding: 14px 18px;
     font-size:14px;
+    width: ${ props => props.block ? "100%" : "auto"};
+    display: ${ props => props.block ? "block" : "auto"};
+
+    &.error {
+        border: 1px solid ${(props) => props.theme.errorColor};
+    }
 
     &:focus {
         box-shadow: none;
@@ -14,11 +20,6 @@ const InputText = styled.input`
     &::placeholder {
         color: #999999;
     }
-`
-
-const InputTextBlock = styled(InputText)`
-    width: 100%;
-    display: block;
 `
 
 const Textarea = styled.textarea`
@@ -35,11 +36,18 @@ const Textarea = styled.textarea`
     &::placeholder {
         color: #999999;
     }
+`
 
+const Errmsg = styled.span`
+    color: ${(props) => props.theme.errorColor};
+    font-size: 14px;
+    display: block;
+    margin-top: 8px;
+    text-align: left;
 `
 
 export {
     InputText,
-    InputTextBlock,
-    Textarea
+    Textarea,
+    Errmsg
 }

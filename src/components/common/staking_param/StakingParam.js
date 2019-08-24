@@ -3,6 +3,9 @@ import { InputGroup, Input, InputGroupAddon, InputGroupText, Row, Col } from 're
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+    .form-row {
+        margin-bottom: 12px;
+    }
 
     select {
         border-radius: 0;
@@ -40,7 +43,7 @@ const Wrapper = styled.div`
 
 function StakingParam(props) {
 
-    const { stakingAmount, stakingSelect, minStaking } = props;
+    const { stakingAmount, stakingSelect, stakingNonce, min_staking_amount } = props;
 
     return (
         <Wrapper>
@@ -54,7 +57,7 @@ function StakingParam(props) {
                 {stakingSelect === "1" ?
                     <Col md={6}>
                         <InputGroup>
-                            <Input type="text" name="stakingAmount" placeholder={`最小质押` + minStaking} value={stakingAmount} onChange={props.onChange} />
+                            <Input type="text" name="stakingAmount" placeholder={`最小质押` + min_staking_amount} value={stakingAmount} onChange={props.onChange} />
                             <InputGroupAddon addonType="append">
                                 <InputGroupText>NAS</InputGroupText>
                             </InputGroupAddon>
@@ -63,8 +66,28 @@ function StakingParam(props) {
                 }
 
             </Row>
+
+            {props.type === "offline" &&
+                <Row form>
+                    <Col md={6}>
+                        <InputGroup>
+                            <Input type="text" name="stakingNonce" value={stakingNonce} onChange={props.onChange} />
+                            <InputGroupAddon addonType="append">
+                                <InputGroupText>Nonce</InputGroupText>
+                            </InputGroupAddon>
+                        </InputGroup>
+                    </Col>
+
+                </Row>
+            }
+
+
         </Wrapper>
     );
+}
+
+StakingParam.defaultProps = {
+    type: "online"
 }
 
 export default StakingParam;

@@ -80,6 +80,58 @@ class Neb {
         }
     }
 
+    // account
+    static isValidAddress(address) {
+        return nebulas.Account.isValidAddress(address);
+    }
+
+    static account(keystore, pwd) {
+        try {
+            const account = nebulas.Account.fromAddress(keystore.address);
+            let res = account.fromKey(keystore, pwd);
+            // console.log(res);
+            return account;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    static _generateRawTransaction(account, to_contract, value, nonce, gasPrice, gasLimit, contract) {
+        const chainId = parseInt(process.env.REACT_APP_CHAIN_ID);
+        const tx = new nebulas.Transaction(chainId, account, to_contract, value, parseInt(nonce), gasPrice, gasLimit, contract);
+        tx.signTransaction();
+        return tx.toProtoString();
+    }
+
+    static generateStakingRawTransaction(account, stakingSelect, value, nonce) {
+        // staking contract address
+        const to_contract = process.env.REACT_APP_STAKING_PROXY_CONTRACT;
+
+        const actions = ["cancelPledge", "pledge"];
+        // contract param
+        const contract = {
+            "source": "",
+            "sourceType": "js",
+            "function": actions[parseInt(stakingSelect)],
+            "args": "[]",
+            "binary": "",
+            "type": "call"
+        };
+
+        if (stakingSelect === "1") { // staking
+            value = nebulas.Unit.nasToBasic(value);
+        } else { // cancel staking
+            value = "0"
+        }
+
+        // set default gas price, limit
+        const gasPrice = 1000000;
+        const gasLimit = 200000;
+
+        return Neb._generateRawTransaction(account, to_contract, value, nonce, gasPrice, gasLimit, contract);
+
+    }
+
 }
 
 

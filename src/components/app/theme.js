@@ -5,6 +5,7 @@ const theme = {
     inputPlaceholderColor: '#999',
     inputHeight: '48px',
     resultBackgroundColor: '#F5F6FA',
+    errorColor: '#FF4D90',
 }
 
 export default theme;

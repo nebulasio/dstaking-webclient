@@ -6,8 +6,10 @@ import classnames from 'classnames';
 import StakingQuery from 'components/common/staking_query'
 import StakingParam from 'components/common/staking_param'
 
-import { Button, ButtonOutline, Group, InputTextBlock, Textarea } from 'components/common/base'
+import { Button, ButtonOutline, Group, InputText, Textarea, Errmsg } from 'components/common/base'
 import { MdFileUpload } from "react-icons/md";
+import { Neb } from 'utils';
+import { saveAs } from 'file-saver';
 
 const Wrapper = styled.div`
     padding: 20px 0 0;
@@ -62,6 +64,27 @@ const UploadButtonText = styled.button`
     }
 `
 
+const FileWrapper = styled.div`
+    margin-top: 20px;
+    color:#666;
+    font-size:14px;
+    & > p {
+        color: #8F90AC;
+        margin: 0;
+        line-height: 1;
+
+        & label {
+            color: #666;
+            font-size:14px;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+    }
+
+`
+
+const min_staking_amount = process.env.REACT_APP_STAKING_MIN;
+
 class Offline extends Component {
 
     constructor(props) {
@@ -69,8 +92,22 @@ class Offline extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            activeTab: '1'
+            activeTab: '2', // 1:staking status query, 2: create offline raw transaction, 3: send raw transaction
+            keystoreContent: "",
+            keystoreFilename: "",
+            rawTransaction: "",
+            accountPwd: "",
+            accountPwdErr: false,
+
+            showInputPwdPanel: false,
+            showStakingParamPanel: false,
+            stakingAmount: min_staking_amount,
+            stakingSelect: "1", // 1:staking, 0:cancel staking
+            stakingNonce: "",
+
         };
+
+        this.account = null;
     }
 
     toggle(tab) {
@@ -81,7 +118,121 @@ class Offline extends Component {
         }
     }
 
+    handleOnChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value,
+            accountPwdErr: false,
+        });
+    }
+
+    handleSelectKeystore = e => {
+
+        e.preventDefault();
+        // creating input[type=file] element
+        const inputFile = document.createElement("input");
+        inputFile.setAttribute("type", "file");
+
+        // add onchange listener to inputFile
+        inputFile.addEventListener("change", e => {
+            let file = e.target.files[0];
+            let fr = new FileReader();
+            fr.onload = e => {
+                try {
+
+                    let keystore = JSON.parse(e.target.result);
+
+                    // detect is correct keystore format
+                    if ('address' in keystore) {
+                        let fileName = file.name;
+
+                        this.setState({
+                            keystoreContent: keystore,
+                            keystoreFilename: fileName,
+                            showInputPwdPanel: true,
+                        });
+
+                        console.log(keystore, fileName);
+                    }
+
+                } catch (ex) {
+                    window.alert("keystore 文件内容不符合标准");
+                }
+            }
+            // raed file as text
+            fr.readAsText(file);
+        });
+
+        // click inputFile
+        inputFile.click(); // opening dialog
+        return false; // avoiding navigation
+
+    }
+
+    handleConfirmPwd = e => {
+        const { keystoreContent, accountPwd } = this.state;
+        try {
+            this.account = Neb.account(keystoreContent, accountPwd);
+
+            this.setState({
+                showInputPwdPanel: false, // hide input pwd panel
+                showStakingParamPanel: true
+            });
+
+        } catch (err) {
+
+            this.setState({
+                accountPwdErr: true
+            });
+
+            window.alert("密码错误");
+
+        }
+    }
+
+    isValidPwd = () => {
+        const { accountPwd } = this.state;
+
+        if (accountPwd) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isValidCreateRawTransactionParam = () => {
+        const { stakingAmount, stakingNonce } = this.state;
+        if (parseInt(stakingAmount) >= parseInt(min_staking_amount) && !isNaN(parseInt(stakingNonce))) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    handleCreateRawTransaction = e => {
+        const { stakingAmount, stakingSelect, stakingNonce } = this.state;
+        try {
+            const rawTx = Neb.generateStakingRawTransaction(this.account, stakingSelect, stakingAmount, stakingNonce);
+            console.log(rawTx);
+
+            this.setState({
+                rawTransaction: rawTx
+            });
+
+        } catch (err) {
+            window.alert(err);
+        }
+    }
+
+    HandleSaveToFile = () => {
+        const blob = new Blob([this.state.rawTransaction], { type: "application/text; charset=utf-8" });
+        saveAs(blob, `raw_transaction_${Date.now()}.txt`);
+    }
+
+
     render() {
+
+        const { keystoreContent, keystoreFilename, rawTransaction, accountPwd, accountPwdErr, showInputPwdPanel, showStakingParamPanel } = this.state;
         return (
             <Wrapper>
                 <Nav tabs>
@@ -114,32 +265,55 @@ class Offline extends Component {
                     <TabPane tabId="1">
                         <StatusTitle>Online Computer</StatusTitle>
                         <StakingQuery type="offline" />
-                        <Group>
-                            <ButtonOutline>去生成交易</ButtonOutline>
-                        </Group>
                     </TabPane>
                     <TabPane tabId="2">
                         <StatusTitle>Offline Computer</StatusTitle>
-                        <ButtonOutline block><MdFileUpload size="14px" />选择 Keystore 文件</ButtonOutline>
 
-                        <Group margin="20px auto">
-                            <InputTextBlock placeholder="输入密码" />
-                        </Group>
+                        <ButtonOutline block onClick={this.handleSelectKeystore}><MdFileUpload size="14px" />
+                            选择 Keystore 文件
+                        </ButtonOutline>
 
-                        <Group>
-                            <StakingParam />
 
-                            <Group>
-                                <Button block>生成文件</Button>
-                            </Group>
+                        {keystoreFilename && keystoreContent &&
+                            <FileWrapper>
+                                <p> <label>file name:</label> {keystoreFilename}</p>
+                                <p> <label>nas address:</label>{keystoreContent.address}</p>
+                            </FileWrapper>
+                        }
 
-                            <Textarea rows="7" defaultValue="CiByCW4akOtKZ6PkhNq4EU8ekrwVFAKHG2Pa8VHHq78t3BIaGVcc8rvmYZhpdDRv+Ud8QihniPgwmedgeHgaGhlYatudy0V86tqEws8c5cSUgm7h2Bi+UWpYIhAAAAAAAAAAAIrHIwSJ6AAAKAkwte/p6gU6KQoEY2FsbBIheyJGdW5jdGlvbiI6InBsZWRnZSIsIkFyZ3MiOiJbXSJ9QAFKEAAAAAAAAAAAAAAABKgXyABSEAAAAAAAAAAAAAAAAAADDUBYAWJBAGS/vSayWj1hqyHcdyOvcq3RNOgNBf1JS+56QoGU/nR+HQSY47g18WumSFjee+D0e8x9TnsIbddQZPGhwMdcigA=" />
+                        {/* when keystore is correct, show input password panel*/}
+                        {showInputPwdPanel &&
+                            <>
+                                <Group margin="20px auto">
+                                    <InputText block className={accountPwdErr ? "error" : ""} type="password" placeholder="输入密码" name="accountPwd" value={accountPwd} onChange={e => this.handleOnChange(e)} />
+                                    {accountPwdErr && <Errmsg>密码错误</Errmsg>}
+                                </Group>
 
+                                <Group margin="20px auto">
+                                    <Button disabled={!this.isValidPwd()} block onClick={this.handleConfirmPwd}>确认</Button>
+                                </Group>
+                            </>
+                        }
+
+                        {/* when pwd is correct, show below */}
+                        {showStakingParamPanel &&
                             <Group margin="20px auto">
-                                <Button block>保存文件</Button>
-                            </Group>
+                                <StakingParam type="offline" {...this.state} onChange={e => this.handleOnChange(e)} min_staking_amount={min_staking_amount} />
 
-                        </Group>
+                                <Group margin="20px auto">
+                                    <Button disabled={!this.isValidCreateRawTransactionParam()} block onClick={this.handleCreateRawTransaction}>生成 Raw Transaction</Button>
+                                </Group>
+                            </Group>
+                        }
+
+                        {rawTransaction &&
+                            <Group>
+                                <Textarea rows="7" value={rawTransaction} />
+                                <Group margin="20px auto">
+                                    <Button onClick={this.HandleSaveToFile} block>保存文件</Button>
+                                </Group>
+                            </Group>
+                        }
                     </TabPane>
                     <TabPane tabId="3">
                         <StatusTitle>Onine Computer</StatusTitle>

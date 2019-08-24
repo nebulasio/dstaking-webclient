@@ -16,6 +16,11 @@ const _ButtonBase = styled.button`
         background-color: ${(props) => props.theme.primaryHoverColor};
         transition: .2s ease-in-out;
     }
+
+    &:disabled {
+        background-color: #CED0D9;
+        border-color: #CED0D9;
+    }
 `
 
 const ButtonOutline = styled(_ButtonBase)`

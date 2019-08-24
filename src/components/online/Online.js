@@ -92,10 +92,8 @@ const QRCodeText = styled.div`
         }
     }
 `
-
-const min_staking_amount = 5;
+const min_staking_amount = process.env.REACT_APP_STAKING_MIN;
 const staking_proxy_contract = process.env.REACT_APP_STAKING_PROXY_CONTRACT;
-
 class Online extends Component {
 
     constructor(props) {
@@ -131,7 +129,7 @@ class Online extends Component {
             return false;
         }
 
-        if (stakingAmount < min_staking_amount) {
+        if (parseInt(stakingAmount) < parseInt(min_staking_amount)) {
             return true;
         } else {
             return false;
@@ -156,7 +154,7 @@ class Online extends Component {
         const CustomStaking =
             <>
                 <FormGroup>
-                    <StakingParam {...this.state} onChange={this.handleChangeCustomStaking} minStaking={min_staking_amount} />
+                    <StakingParam {...this.state} onChange={this.handleChangeCustomStaking} min_staking_amount={min_staking_amount} />
                 </FormGroup>
 
                 {stakingSelect === "1" &&
