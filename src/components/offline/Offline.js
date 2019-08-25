@@ -104,6 +104,7 @@ class Offline extends Component {
             stakingAmount: min_staking_amount,
             stakingSelect: "1", // 1:staking, 0:cancel staking
             stakingNonce: "",
+            offlineRawTransaction: ""
 
         };
 
@@ -128,43 +129,30 @@ class Offline extends Component {
     handleSelectKeystore = e => {
 
         e.preventDefault();
-        // creating input[type=file] element
-        const inputFile = document.createElement("input");
-        inputFile.setAttribute("type", "file");
 
-        // add onchange listener to inputFile
-        inputFile.addEventListener("change", e => {
-            let file = e.target.files[0];
-            let fr = new FileReader();
-            fr.onload = e => {
-                try {
+        this._onClickReadFile((event, file) => {
+            try {
 
-                    let keystore = JSON.parse(e.target.result);
+                let keystore = JSON.parse(event.target.result);
 
-                    // detect is correct keystore format
-                    if ('address' in keystore) {
-                        let fileName = file.name;
+                // detect is correct keystore format
+                if ('address' in keystore) {
+                    let fileName = file.name;
 
-                        this.setState({
-                            keystoreContent: keystore,
-                            keystoreFilename: fileName,
-                            showInputPwdPanel: true,
-                        });
+                    this.setState({
+                        keystoreContent: keystore,
+                        keystoreFilename: fileName,
+                        showInputPwdPanel: true,
+                    });
 
-                        console.log(keystore, fileName);
-                    }
-
-                } catch (ex) {
-                    window.alert("keystore 文件内容不符合标准");
+                    // console.log(keystore, fileName);
                 }
-            }
-            // raed file as text
-            fr.readAsText(file);
-        });
 
-        // click inputFile
-        inputFile.click(); // opening dialog
-        return false; // avoiding navigation
+            } catch (ex) {
+                // window.alert(ex);
+                window.alert("keystore 文件内容不符合标准");
+            }
+        });
 
     }
 
@@ -224,15 +212,56 @@ class Offline extends Component {
         }
     }
 
-    HandleSaveToFile = () => {
+    handleSaveToFile = () => {
         const blob = new Blob([this.state.rawTransaction], { type: "application/text; charset=utf-8" });
         saveAs(blob, `raw_transaction_${Date.now()}.txt`);
     }
 
+    handleSendRawTransction = async () => {
+
+        try {
+            const neb = new Neb();
+            const res = await neb.sendRawTransaction(this.state.offlineRawTransaction);
+            console.log(res);
+        } catch (err) {
+            window.alert(err);
+        }
+    }
+
+    handleUploadRawTransaction = e => {
+        e.preventDefault();
+
+        this._onClickReadFile(event => {
+            // console.log(event.target.result);
+            this.setState({
+                offlineRawTransaction: event.target.result
+            });
+
+        });
+    }
+
+    _onClickReadFile = onload => {
+        // creating input[type=file] element
+        const inputFile = document.createElement("input");
+        inputFile.setAttribute("type", "file");
+
+        // add onchange listener to inputFile
+        inputFile.addEventListener("change", e => {
+            let file = e.target.files[0];
+            let fr = new FileReader();
+            fr.onload = e => onload(e, file);
+            // raed file as text
+            fr.readAsText(file);
+        });
+
+        // click inputFile
+        inputFile.click(); // opening dialog
+        return false; // avoiding navigation
+    }
 
     render() {
 
-        const { keystoreContent, keystoreFilename, rawTransaction, accountPwd, accountPwdErr, showInputPwdPanel, showStakingParamPanel } = this.state;
+        const { keystoreContent, keystoreFilename, rawTransaction, accountPwd, accountPwdErr, showInputPwdPanel, showStakingParamPanel, offlineRawTransaction } = this.state;
         return (
             <Wrapper>
                 <Nav tabs>
@@ -310,7 +339,7 @@ class Offline extends Component {
                             <Group>
                                 <Textarea rows="7" value={rawTransaction} />
                                 <Group margin="20px auto">
-                                    <Button onClick={this.HandleSaveToFile} block>保存文件</Button>
+                                    <Button onClick={this.handleSaveToFile} block>保存文件</Button>
                                 </Group>
                             </Group>
                         }
@@ -318,11 +347,11 @@ class Offline extends Component {
                     <TabPane tabId="3">
                         <StatusTitle>Onine Computer</StatusTitle>
 
-                        <Textarea rows="7" placeholder="请粘贴离线生成的 raw transaction"></Textarea>
-                        <UploadButtonText><MdFileUpload size="14px" /> 上传离线生成的 raw transaction</UploadButtonText>
+                        <Textarea rows="7" placeholder="请粘贴离线生成的 raw transaction" name="offlineRawTransaction" value={offlineRawTransaction} onChange={this.handleOnChange}></Textarea>
+                        <UploadButtonText onClick={this.handleUploadRawTransaction}><MdFileUpload size="14px" /> 上传离线生成的 raw transaction</UploadButtonText>
 
                         <Group margin="20px auto">
-                            <Button block>发送交易</Button>
+                            <Button disabled={offlineRawTransaction ? false : true} block onClick={this.handleSendRawTransction}>发送交易</Button>
                         </Group>
 
                     </TabPane>

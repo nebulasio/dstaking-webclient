@@ -7,7 +7,7 @@ class Neb {
     }
 
     _toNas(wei) {
-        return Number(nebulas.Utils.toBigNumber(wei).mul(nebulas.Utils.toBigNumber(10).pow(-18))).toFixed(4);
+        return Number(nebulas.Utils.toBigNumber(wei).mul(nebulas.Utils.toBigNumber(10).pow(-18)));
     }
 
     // call contract common function
@@ -62,6 +62,8 @@ class Neb {
                 this.getCurrentStakings(address)
             ]);
 
+            console.log(currentStaking);
+
             // caculate nas staking sum
             let stakingSum = Number(0);
             currentStaking.map(item => {
@@ -103,32 +105,46 @@ class Neb {
         return tx.toProtoString();
     }
 
-    static generateStakingRawTransaction(account, stakingSelect, value, nonce) {
+    static generateStakingRawTransaction(account, stakingSelect, stakingAmount, nonce) {
         // staking contract address
         const to_contract = process.env.REACT_APP_STAKING_PROXY_CONTRACT;
 
-        const actions = ["cancelPledge", "pledge"];
+        const actions = ["cancel", "staking"];
+
+
+        let value;
+        if (stakingSelect === "1") { // staking
+            value = nebulas.Unit.nasToBasic(stakingAmount);
+        } else { // cancel staking
+            value = "0"
+        }
+
         // contract param
         const contract = {
             "source": "",
             "sourceType": "js",
             "function": actions[parseInt(stakingSelect)],
-            "args": "[]",
+            "args": `[${value}]`,
             "binary": "",
             "type": "call"
         };
 
-        if (stakingSelect === "1") { // staking
-            value = nebulas.Unit.nasToBasic(value);
-        } else { // cancel staking
-            value = "0"
-        }
-
         // set default gas price, limit
-        const gasPrice = 1000000;
+        const gasPrice = 2 * Math.pow(10, 10);
         const gasLimit = 200000;
 
-        return Neb._generateRawTransaction(account, to_contract, value, nonce, gasPrice, gasLimit, contract);
+        return Neb._generateRawTransaction(account, to_contract, "0", nonce, gasPrice, gasLimit, contract);
+
+    }
+
+    sendRawTransaction(rawTransaction) {
+        return new Promise((resolve, reject) => {
+            this.neb.api.sendRawTransaction(rawTransaction).then(res => {
+                resolve(res)
+            }).catch(err => {
+                reject(err);
+            });
+        })
 
     }
 
