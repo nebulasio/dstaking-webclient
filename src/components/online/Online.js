@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import QRCode from 'qrcode.react';
 import StakingQuery from 'components/common/staking_query'
 import StakingParam from 'components/common/staking_param'
+import { Neb } from 'utils';
 
 const Wrapper = styled.div`
     margin: 40px 135px;
@@ -92,6 +93,13 @@ const QRCodeText = styled.div`
         }
     }
 `
+
+const StakingLabel = styled.div`
+    label {
+        display: block;
+    }
+`
+
 const min_staking_amount = process.env.REACT_APP_STAKING_MIN;
 const staking_proxy_contract = process.env.REACT_APP_STAKING_PROXY_CONTRACT;
 class Online extends Component {
@@ -104,12 +112,21 @@ class Online extends Component {
             stakingAmount: min_staking_amount,
             stakingSelect: "1", // 1:staking, 0:cancel staking
             showQrcode: false,
+            qrcodeText: "",
         }
     }
 
     handleStakingType = e => {
         this.setState({
             stakingType: e.target.id.split("radio-")[1]
+        }, () => {
+            const { stakingAmount, stakingSelect, stakingType } = this.state;
+            if (stakingType === "third-wallet") {
+                // re-generate qrcode
+                this.setState({
+                    qrcodeText: Neb.generateQrcode("1", "0", stakingType)
+                });
+            }
         });
     }
 
@@ -118,7 +135,16 @@ class Online extends Component {
 
         this.setState({
             [e.target.name]: e.target.value
+        }, () => {
+            const { stakingSelect, stakingType } = this.state;
+            if (stakingSelect === "0") {
+                // re-generate qrcode
+                this.setState({
+                    qrcodeText: Neb.generateQrcode("0", "0", stakingType)
+                });
+            }
         });
+
     }
 
     isDisableSubmit() {
@@ -140,15 +166,17 @@ class Online extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
+        const { stakingAmount, stakingSelect, stakingType } = this.state;
+
         this.setState({
-            showQrcode: true
+            showQrcode: true,
+            qrcodeText: Neb.generateQrcode(stakingSelect, stakingAmount, stakingType)
         });
     }
 
-
     render() {
 
-        const { stakingType, stakingSelect, showQrcode } = this.state;
+        const { stakingType, stakingSelect, showQrcode, qrcodeText } = this.state;
 
         // custom stking nas amount, cancel staking
         const CustomStaking =
@@ -165,7 +193,7 @@ class Online extends Component {
 
                 {showQrcode &&
                     <QRCodeWrapper>
-                        <QRCode size={140} value="http://facebook.github.io/react/" />
+                        <QRCode size={140} value={qrcodeText} />
                         <QRCodeText>
                             <h3>请使用 Nas nano pro 扫码</h3>
                             <p>注意调用的钱包地址和查询地址的一致性</p>
@@ -177,11 +205,14 @@ class Online extends Component {
             </>
 
         const ThirdStaking = <>
-            <label>转账地址: {staking_proxy_contract}</label>
-            <label>转账金额: 0 NAS</label>
+            <StakingLabel>
+                <label>转账地址: {staking_proxy_contract}</label>
+                <label>转账金额: 0 NAS</label>
+                <label>质押金额: 默认为该钱包内所有 NAS 余额</label>
+            </StakingLabel>
 
             <QRCodeWrapper>
-                <QRCode size={140} value={staking_proxy_contract} />
+                <QRCode size={140} value={qrcodeText} />
                 <QRCodeText>
                     <h3>请使用三方钱包扫码</h3>
                     <a href="https://nebulas.io/wallets.html">下载三方钱包 ></a>
