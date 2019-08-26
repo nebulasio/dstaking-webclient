@@ -8,6 +8,7 @@ import StakingParam from 'components/common/staking_param'
 import { Neb } from 'utils';
 import NebPay from "nebpay.js";
 import nebulas from 'nebulas';
+import { Group, TextGroup } from 'components/common/base';
 
 const Wrapper = styled.div`
     margin: 40px 135px;
@@ -96,12 +97,6 @@ const QRCodeText = styled.div`
     }
 `
 
-const StakingLabel = styled.div`
-    label {
-        display: block;
-    }
-`
-
 const min_staking_amount = process.env.REACT_APP_STAKING_MIN;
 const staking_proxy_contract = process.env.REACT_APP_STAKING_PROXY_CONTRACT;
 class Online extends Component {
@@ -128,8 +123,6 @@ class Online extends Component {
                 this.setState({
                     showQrcode: false,
                 });
-
-                // call nas ext
 
             } else if (stakingType === "third-wallet") {
                 // re-generate qrcode
@@ -237,6 +230,14 @@ class Online extends Component {
                     <StakingParam {...this.state} onChange={this.handleChangeCustomStaking} min_staking_amount={min_staking_amount} />
                 </FormGroup>
 
+                {stakingType === "nas-ext" &&
+                    <TextGroup>
+                        <a href="https://chrome.google.com/webstore/detail/nasextwallet/gehjkhmhclgnkkhpfamakecfgakkfkco" target="__blank">
+                            获取 NasExtWallet
+                        </a>
+                    </TextGroup>
+                }
+
                 {(stakingSelect === "1" || stakingType === "nas-ext") &&
                     <FormGroup>
                         <Button color="primary" size="lg" disabled={this.isDisableSubmit()} block onClick={this.handleSubmit}>质押</Button>
@@ -257,11 +258,12 @@ class Online extends Component {
             </>
 
         const ThirdStaking = <>
-            <StakingLabel>
-                <label>转账地址: {staking_proxy_contract}</label>
-                <label>转账金额: 0 NAS</label>
-                <label>质押金额: 默认为该钱包内所有 NAS 余额</label>
-            </StakingLabel>
+            <TextGroup>
+                <p><label>转账地址: </label><input type="text" defaultValue={staking_proxy_contract} /></p>
+                <p><label>转账金额: </label> 0 NAS</p>
+                <p><label>质押金额: </label> 默认为该钱包内所有 NAS 余额</p>
+
+            </TextGroup>
 
             <QRCodeWrapper>
                 <QRCode size={140} value={qrcodeText} />

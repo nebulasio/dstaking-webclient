@@ -87,7 +87,7 @@ class StakingQuery extends Component {
         super(props);
 
         this.state = {
-            nasAddr: "n1JvS1LDTJRxSdq4F5cDd1x78ihHTTRyWif",
+            nasAddr: "",
             nasBalance: "",
             nasStaking: "",
             nonce: "",
@@ -107,7 +107,11 @@ class StakingQuery extends Component {
         e.preventDefault();
 
         const { nasAddr } = this.state;
-        console.log(nasAddr);
+
+        if (!nasAddr) {
+            window.alert("地址不能为空！");
+            return false;
+        }
 
         try {
 

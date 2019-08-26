@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import StakingQuery from 'components/common/staking_query'
 import StakingParam from 'components/common/staking_param'
 
-import { Button, ButtonOutline, Group, InputText, Textarea, Errmsg } from 'components/common/base'
+import { Button, ButtonOutline, Group, InputText, Textarea, Errmsg, TextGroup } from 'components/common/base'
 import { MdFileUpload } from "react-icons/md";
 import { Neb } from 'utils';
 import { saveAs } from 'file-saver';
@@ -92,7 +92,7 @@ class Offline extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            activeTab: '2', // 1:staking status query, 2: create offline raw transaction, 3: send raw transaction
+            activeTab: '1', // 1:staking status query, 2: create offline raw transaction, 3: send raw transaction
             keystoreContent: "",
             keystoreFilename: "",
             rawTransaction: "",
@@ -304,10 +304,10 @@ class Offline extends Component {
 
 
                         {keystoreFilename && keystoreContent &&
-                            <FileWrapper>
+                            <TextGroup>
                                 <p> <label>file name:</label> {keystoreFilename}</p>
-                                <p> <label>nas address:</label>{keystoreContent.address}</p>
-                            </FileWrapper>
+                                <p> <label>nas address:</label> <input type="text" defaultValue={keystoreContent.address} /></p>
+                            </TextGroup>
                         }
 
                         {/* when keystore is correct, show input password panel*/}
