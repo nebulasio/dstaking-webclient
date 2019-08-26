@@ -13,6 +13,6 @@
     "comfirm": "Comfirm",
     "generate raw tx": "Generate raw transaction",
     "save file": "Save raw transaction to file",
-    "type raw tx": "Please type offline generate raw transaction",
+    "type raw tx": "Paste your offline generated raw transaction here",
     "upload tx file": "Upload and submit raw transaction file"
 }
