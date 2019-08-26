@@ -3,6 +3,7 @@ import { Button, InputGroup, Input, InputGroupAddon } from 'reactstrap';
 import styled from 'styled-components';
 import { Neb } from 'utils';
 import { Spinner } from 'reactstrap';
+import { withTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
     .spinner-grow {
@@ -106,10 +107,11 @@ class StakingQuery extends Component {
     handleQuery = async (e) => {
         e.preventDefault();
 
+        const { t } = this.props;
         const { nasAddr } = this.state;
 
         if (!nasAddr) {
-            window.alert("地址不能为空！");
+            window.alert(t("wallet address can not empty"));
             return false;
         }
 
@@ -141,19 +143,19 @@ class StakingQuery extends Component {
     render() {
 
         const { nasAddr, nasBalance, nasStaking, nonce, loading } = this.state;
-        const { type } = this.props;
+        const { t, type } = this.props;
 
         const showResult = () => {
             if (nasBalance && nasStaking) {
                 return (
                     <ResultWrapper>
                         <ResultItem>
-                            <label>NAS余额</label>
+                            <label>{t("wallet balance")}</label>
                             <p>{nasBalance} NAS</p>
                         </ResultItem>
 
                         <ResultItem>
-                            <label>已质押</label>
+                            <label>{t("already staking")}</label>
                             <p>{nasStaking} NAS</p>
                         </ResultItem>
 
@@ -174,8 +176,8 @@ class StakingQuery extends Component {
         return (
             <Wrapper>
                 <InputGroup>
-                    <Input type="text" name="nasAddr" placeholder="输入钱包地址" value={nasAddr} onChange={this.OnInputChange} />
-                    <InputGroupAddon addonType="append"><Button onClick={this.handleQuery}>查询</Button></InputGroupAddon>
+                    <Input type="text" name="nasAddr" placeholder={t("type wallet address")} value={nasAddr} onChange={this.OnInputChange} />
+                    <InputGroupAddon addonType="append"><Button onClick={this.handleQuery}>{t("query")}</Button></InputGroupAddon>
                 </InputGroup>
 
                 {loading ? <Spinner type="grow" color="light" /> : showResult()}
@@ -190,4 +192,4 @@ StakingQuery.defaultProps = {
     type: "online" // online, offline
 }
 
-export default StakingQuery;
+export default withTranslation(['common'])(StakingQuery);

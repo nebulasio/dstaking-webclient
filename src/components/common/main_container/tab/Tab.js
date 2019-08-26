@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,6 @@ const TabList = styled.div`
     justify-content: center;
     & > a {
         font-size:18px;
-        font-family:PingFangSC;
         font-weight:400;
         color: #333;
         margin: 0 60px;
@@ -30,13 +29,17 @@ const TabList = styled.div`
 `
 
 export default function Tab() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation("common");
+
+    function isActiveOnlineTab(math, location) {
+        return location.pathname === '/online/' || location.pathname === "/" ? true : false;
+    }
 
     return (
         <Wrapper>
             <TabList>
-                <NavLink to="/online/" activeClassName="selected">{t('online-staking')}</NavLink>
-                <NavLink to="/offline/" activeClassName="selected">离线质押</NavLink>
+                <NavLink to="/online/" isActive={isActiveOnlineTab} activeClassName="selected">{t('online staking')}</NavLink>
+                <NavLink to="/offline/" activeClassName="selected">{t('offline staking')}</NavLink>
             </TabList>
         </Wrapper>
     )

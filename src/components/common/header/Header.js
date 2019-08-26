@@ -27,6 +27,7 @@ const Wrapper = styled.div`
         .navbar-brand {
             line-height: 30px;
             font-size: 16px;
+            font-family: ${props => props.theme.fontFamily};
 
             .logo {
                 width: 26px;
@@ -39,38 +40,16 @@ const Wrapper = styled.div`
             .nav-link {
                 color: #000;
                 line-height: 1;
+
+                svg {
+                    vertical-align: middle;
+                }
+
+                &.dropdown-toggle::after {
+                    vertical-align: middle;
+                }
             }
         }
-    }
-`
-
-const Label = styled.label`
-    height:20px;
-    font-size:14px;
-    font-family:PingFangSC;
-    font-weight:400;
-    color:rgba(0,0,0,1);
-    line-height:20px;
-    & > svg {
-        width: 14px;
-        height: 14px;
-    }
-`
-
-const ButtonText = styled.button`
-    background: #fff !important;
-    border: none;
-    color:#333;
-    font-size:14px;
-
-    svg {
-        margin-bottom: 2px;
-        margin-right: 4px;
-    }
-
-    &:focus {
-        box-shadow: none;
-        outline: 0;
     }
 `
 
@@ -78,6 +57,15 @@ const ButtonText = styled.button`
 function Header() {
 
     const { t, i18n } = useTranslation();
+
+
+    function showCurrentLanguage() {
+        if (i18n.language === "zh-CN") {
+            return "中文";
+        } else {
+            return "EN";
+        }
+    }
 
     return (
         <Wrapper>
@@ -90,7 +78,7 @@ function Header() {
                     <Nav className="ml-auto" navbar>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                                <IoIosGlobe />中文
+                                <IoIosGlobe /> {showCurrentLanguage()}
                             </DropdownToggle>
                             <DropdownMenu right>
 

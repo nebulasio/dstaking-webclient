@@ -17,6 +17,7 @@ export default class Routes extends Component {
 
                     <App>
                         {this.props.children}
+                        <Route path="/" exact component={Online} />
                         <Route path="/online/" component={Online} />
                         <Route path="/offline/" component={Offline} />
                     </App>

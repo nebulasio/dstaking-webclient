@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Button, Form, FormGroup, Label, InputGroup, Input, InputGroupAddon, InputGroupText, CustomInput, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 import QRCode from 'qrcode.react';
@@ -18,7 +18,6 @@ const Wrapper = styled.div`
         & > label {
             display: block;
             font-size:20px;
-            font-family:PingFangSC;
             font-weight:600;
         }
     
@@ -37,7 +36,6 @@ const Wrapper = styled.div`
         .btn-block {
             height: 56px;
             font-size:16px;
-            font-family:PingFangSC;
             font-weight:500;
             border-radius: 0;
 
@@ -71,17 +69,18 @@ const QRCodeWrapper = styled.div`
 `
 
 const QRCodeText = styled.div`
-    margin: 10px auto;
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     h3 {
         font-size:16px;
-        font-family:PingFangSC;
         font-weight:500;
     }
 
     p {
         font-size:14px;
-        font-family:PingFangSC;
         font-weight:400;
         color:rgba(102,102,102,1);
     }
@@ -220,7 +219,7 @@ class Online extends Component {
     }
 
     render() {
-
+        const { t } = this.props;
         const { stakingType, stakingSelect, showQrcode, qrcodeText } = this.state;
 
         // custom stking nas amount, cancel staking
@@ -233,14 +232,16 @@ class Online extends Component {
                 {stakingType === "nas-ext" &&
                     <TextGroup>
                         <a href="https://chrome.google.com/webstore/detail/nasextwallet/gehjkhmhclgnkkhpfamakecfgakkfkco" target="__blank">
-                            获取 NasExtWallet
+                            {t("get nebulas ext")}
                         </a>
                     </TextGroup>
                 }
 
                 {(stakingSelect === "1" || stakingType === "nas-ext") &&
                     <FormGroup>
-                        <Button color="primary" size="lg" disabled={this.isDisableSubmit()} block onClick={this.handleSubmit}>质押</Button>
+                        <Button color="primary" size="lg" disabled={this.isDisableSubmit()} block onClick={this.handleSubmit}>
+                            {t("staking")}
+                        </Button>
                     </FormGroup>
                 }
 
@@ -248,9 +249,9 @@ class Online extends Component {
                     <QRCodeWrapper>
                         <QRCode size={140} value={qrcodeText} />
                         <QRCodeText>
-                            <h3>请使用 Nas nano pro 扫码</h3>
-                            <p>注意调用的钱包地址和查询地址的一致性</p>
-                            <a href="hhttps://nano.nebulas.io/">下载 Nas nano pro ></a>
+                            <h3>{t("scan qrcode use nas nano")}</h3>
+                            <p>{t("notice wallet address and query address")}</p>
+                            <a href="https://nano.nebulas.io/">{t("download nas nano")} ></a>
                         </QRCodeText>
                     </QRCodeWrapper>
                 }
@@ -259,17 +260,17 @@ class Online extends Component {
 
         const ThirdStaking = <>
             <TextGroup>
-                <p><label>转账地址: </label><input type="text" defaultValue={staking_proxy_contract} /></p>
-                <p><label>转账金额: </label> 0 NAS</p>
-                <p><label>质押金额: </label> 默认为该钱包内所有 NAS 余额</p>
+                <p><label>{t("transfer address")}: </label><input type="text" defaultValue={staking_proxy_contract} /></p>
+                <p><label>{t("transfer amount")}: </label> 0 NAS</p>
+                <p><label>{t("staking amount")}: </label> {t("staking all balance")}</p>
 
             </TextGroup>
 
             <QRCodeWrapper>
                 <QRCode size={140} value={qrcodeText} />
                 <QRCodeText>
-                    <h3>请使用三方钱包扫码</h3>
-                    <a href="https://nebulas.io/wallets.html">下载三方钱包 ></a>
+                    <h3>{t("scan qrcode use support nas wallet")}</h3>
+                    <a href="https://nebulas.io/wallets.html">{t("download others wallet")} ></a>
                 </QRCodeText>
             </QRCodeWrapper>
         </>
@@ -288,15 +289,15 @@ class Online extends Component {
             <Wrapper>
                 <Form>
                     <FormGroup>
-                        <Label>质押状态查询</Label>
+                        <Label>{t("query staking status")}</Label>
                         <StakingQuery />
                     </FormGroup>
 
                     <FormGroup>
-                        <Label>质押方式</Label>
+                        <Label>{t("staking type")}</Label>
                         <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-nano" name="radio-staking-start" label="NAS nano" />
-                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-ext" name="radio-staking-start" label="Nebulas 谷歌插件" />
-                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-third-wallet" name="radio-staking-start" label="三方钱包" />
+                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-ext" name="radio-staking-start" label={t("nebulas chrome ext")} />
+                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-third-wallet" name="radio-staking-start" label={t("other wallet")} />
                     </FormGroup>
 
                     {showStakingPanel()}
@@ -308,4 +309,4 @@ class Online extends Component {
 
 }
 
-export default Online;
+export default withTranslation(['online'])(Online);

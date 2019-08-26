@@ -1,0 +1,18 @@
+{
+    "online computer": "Online Computer",
+    "offline computer": "Offline Computer",
+    "get account state": "Get account state",
+    "generate offline  raw tx": "Generate offline raw tx",
+    "send tx": "Send Raw Transaction",
+    "select keystore": "Select keystore file",
+    "keystore format wrong": "keystore format is wrong",
+    "file name": "File name",
+    "nas address": "NAS address",
+    "type password": "Please type password",
+    "wrong password": "password is wrong",
+    "comfirm": "Comfirm",
+    "generate raw tx": "generate raw transaction",
+    "save file": "Save to file",
+    "type raw tx": "Please type offline generate raw transaction",
+    "upload tx file": "Upload raw transaction file"
+}

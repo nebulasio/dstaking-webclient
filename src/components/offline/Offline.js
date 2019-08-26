@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 import classnames from 'classnames';
@@ -128,6 +128,8 @@ class Offline extends Component {
 
     handleSelectKeystore = e => {
 
+        const { t } = this.props;
+
         e.preventDefault();
 
         this._onClickReadFile((event, file) => {
@@ -150,13 +152,14 @@ class Offline extends Component {
 
             } catch (ex) {
                 // window.alert(ex);
-                window.alert("keystore 文件内容不符合标准");
+                window.alert(t('keystore format wrong'));
             }
         });
 
     }
 
     handleConfirmPwd = e => {
+        const { t } = this.props;
         const { keystoreContent, accountPwd } = this.state;
         try {
             this.account = Neb.account(keystoreContent, accountPwd);
@@ -172,7 +175,7 @@ class Offline extends Component {
                 accountPwdErr: true
             });
 
-            window.alert("密码错误");
+            window.alert(t('wrong password'));
 
         }
     }
@@ -260,8 +263,9 @@ class Offline extends Component {
     }
 
     render() {
-
+        const { t, i18n } = this.props;
         const { keystoreContent, keystoreFilename, rawTransaction, accountPwd, accountPwdErr, showInputPwdPanel, showStakingParamPanel, offlineRawTransaction } = this.state;
+
         return (
             <Wrapper>
                 <Nav tabs>
@@ -270,7 +274,7 @@ class Offline extends Component {
                             className={classnames({ active: this.state.activeTab === '1' })}
                             onClick={() => { this.toggle('1'); }}
                         >
-                            获取账户信息
+                            {t('get account state')}
                         </NavLink>
                     </NavItem>
                     <NavItem>
@@ -278,7 +282,7 @@ class Offline extends Component {
                             className={classnames({ active: this.state.activeTab === '2' })}
                             onClick={() => { this.toggle('2'); }}
                         >
-                            离线生成交易
+                            {t('generate offline  raw tx')}
                         </NavLink>
                     </NavItem>
                     <NavItem>
@@ -286,27 +290,27 @@ class Offline extends Component {
                             className={classnames({ active: this.state.activeTab === '3' })}
                             onClick={() => { this.toggle('3'); }}
                         >
-                            发送交易
+                            {t('send tx')}
                         </NavLink>
                     </NavItem>
                 </Nav>
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1">
-                        <StatusTitle>Online Computer</StatusTitle>
+                        <StatusTitle>{t('online computer')}</StatusTitle>
                         <StakingQuery type="offline" />
                     </TabPane>
                     <TabPane tabId="2">
-                        <StatusTitle>Offline Computer</StatusTitle>
+                        <StatusTitle>{t('offline computer')}</StatusTitle>
 
                         <ButtonOutline block onClick={this.handleSelectKeystore}><MdFileUpload size="14px" />
-                            选择 Keystore 文件
+                            {t('select keystore')}
                         </ButtonOutline>
 
 
                         {keystoreFilename && keystoreContent &&
                             <TextGroup>
-                                <p> <label>file name:</label> {keystoreFilename}</p>
-                                <p> <label>nas address:</label> <input type="text" defaultValue={keystoreContent.address} /></p>
+                                <p> <label>{t('file name')}:</label> {keystoreFilename}</p>
+                                <p> <label>{t('nas address')}:</label> <input type="text" defaultValue={keystoreContent.address} /></p>
                             </TextGroup>
                         }
 
@@ -314,12 +318,13 @@ class Offline extends Component {
                         {showInputPwdPanel &&
                             <>
                                 <Group margin="20px auto">
-                                    <InputText block className={accountPwdErr ? "error" : ""} type="password" placeholder="输入密码" name="accountPwd" value={accountPwd} onChange={e => this.handleOnChange(e)} />
-                                    {accountPwdErr && <Errmsg>密码错误</Errmsg>}
+                                    <InputText block className={accountPwdErr ? "error" : ""} type="password" placeholder={t('type password')} name="accountPwd"
+                                        value={accountPwd} onChange={e => this.handleOnChange(e)} />
+                                    {accountPwdErr && <Errmsg>{t('wrong password')}</Errmsg>}
                                 </Group>
 
                                 <Group margin="20px auto">
-                                    <Button disabled={!this.isValidPwd()} block onClick={this.handleConfirmPwd}>确认</Button>
+                                    <Button disabled={!this.isValidPwd()} block onClick={this.handleConfirmPwd}>{t('comfirm')}</Button>
                                 </Group>
                             </>
                         }
@@ -330,7 +335,7 @@ class Offline extends Component {
                                 <StakingParam type="offline" {...this.state} onChange={e => this.handleOnChange(e)} min_staking_amount={min_staking_amount} />
 
                                 <Group margin="20px auto">
-                                    <Button disabled={!this.isValidCreateRawTransactionParam()} block onClick={this.handleCreateRawTransaction}>生成 Raw Transaction</Button>
+                                    <Button disabled={!this.isValidCreateRawTransactionParam()} block onClick={this.handleCreateRawTransaction}>{t('generate raw tx')}</Button>
                                 </Group>
                             </Group>
                         }
@@ -339,19 +344,19 @@ class Offline extends Component {
                             <Group>
                                 <Textarea rows="7" value={rawTransaction} />
                                 <Group margin="20px auto">
-                                    <Button onClick={this.handleSaveToFile} block>保存文件</Button>
+                                    <Button onClick={this.handleSaveToFile} block>{t('save file')}</Button>
                                 </Group>
                             </Group>
                         }
                     </TabPane>
                     <TabPane tabId="3">
-                        <StatusTitle>Onine Computer</StatusTitle>
+                        <StatusTitle>{t('online computer')}</StatusTitle>
 
-                        <Textarea rows="7" placeholder="请粘贴离线生成的 raw transaction" name="offlineRawTransaction" value={offlineRawTransaction} onChange={this.handleOnChange}></Textarea>
-                        <UploadButtonText onClick={this.handleUploadRawTransaction}><MdFileUpload size="14px" /> 上传离线生成的 raw transaction</UploadButtonText>
+                        <Textarea rows="7" placeholder={t('type raw tx')} name="offlineRawTransaction" value={offlineRawTransaction} onChange={this.handleOnChange}></Textarea>
+                        <UploadButtonText onClick={this.handleUploadRawTransaction}><MdFileUpload size="14px" /> {t('upload tx file')}</UploadButtonText>
 
                         <Group margin="20px auto">
-                            <Button disabled={offlineRawTransaction ? false : true} block onClick={this.handleSendRawTransction}>发送交易</Button>
+                            <Button disabled={offlineRawTransaction ? false : true} block onClick={this.handleSendRawTransction}>{t('send tx')}</Button>
                         </Group>
 
                     </TabPane>
@@ -362,4 +367,4 @@ class Offline extends Component {
 
 }
 
-export default Offline;
+export default withTranslation(['offline'])(Offline);

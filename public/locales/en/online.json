@@ -1,0 +1,17 @@
+{
+    "query staking status": "Query Staking status",
+    "staking type": "Staking type",
+    "nebulas ext": "Nebulas Chrome wallet",
+    "get nebulas ext": "Get Nebulas Chrome wallet",
+    "other wallet": "Others wallet",
+    "staking": "Staking",
+    "transfer address": "Transfer address",
+    "transfer amount": "Transfer amount",
+    "staking amount": "staking amount",
+    "staking all balance": "default staking all balance",
+    "scan qrcode use support nas wallet": "Scan QRcode use support nas wallet",
+    "download others wallet": "Download others wallet",
+    "scan qrcode use nas nano": "Scan QRcode use Nas Nano",
+    "notice wallet address and query address": "Notice wallet address and query address is same",
+    "download nas nano": "Download Nas nano pro"
+}

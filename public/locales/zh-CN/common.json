@@ -1,0 +1,12 @@
+{
+    "online staking": "在线质押",
+    "offline staking": "离线质押",
+    "query": "查询",
+    "wallet address can not empty": "查询地址不能为空！",
+    "wallet balance": "钱包余额",
+    "already staking": "已质押",
+    "type wallet address": "请输入NAS钱包地址",
+    "staking": "质押",
+    "min staking": "最小质押",
+    "cancel staking": "取消质押"
+}

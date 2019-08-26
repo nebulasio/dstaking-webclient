@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     width:750px;
     background:rgba(255,255,255,1);
     border:1px solid rgba(239,239,239,1);
+    font-family: ${props => props.theme.fontFamily};;
 `
 
 

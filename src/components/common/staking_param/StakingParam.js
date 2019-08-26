@@ -1,6 +1,7 @@
 import React from 'react'
 import { InputGroup, Input, InputGroupAddon, InputGroupText, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
     .form-row {
@@ -44,20 +45,21 @@ const Wrapper = styled.div`
 function StakingParam(props) {
 
     const { stakingAmount, stakingSelect, stakingNonce, min_staking_amount } = props;
+    const { t } = useTranslation("common");
 
     return (
         <Wrapper>
             <Row form>
                 <Col md={6}>
                     <Input type="select" name="stakingSelect" onChange={props.onChange}>
-                        <option value="1">质押</option>
-                        <option value="0">取消质押</option>
+                        <option value="1">{t("staking")}</option>
+                        <option value="0">{t("cancel staking")}</option>
                     </Input>
                 </Col>
                 {stakingSelect === "1" ?
                     <Col md={6}>
                         <InputGroup>
-                            <Input type="text" name="stakingAmount" placeholder={`最小质押` + min_staking_amount} value={stakingAmount} onChange={props.onChange} />
+                            <Input type="text" name="stakingAmount" placeholder={t("min staking") + min_staking_amount} value={stakingAmount} onChange={props.onChange} />
                             <InputGroupAddon addonType="append">
                                 <InputGroupText>NAS</InputGroupText>
                             </InputGroupAddon>
