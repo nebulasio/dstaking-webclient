@@ -62,7 +62,7 @@ const ResultWrapper = styled.div`
     margin-top: 20px;
     padding: 18px 14px;
     background-color: ${(props) => props.theme.resultBackgroundColor};
-    height: 56px;
+    height: auto;
 `
 
 const ResultItem = styled.div`

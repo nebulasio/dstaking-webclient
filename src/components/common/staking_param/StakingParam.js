@@ -2,10 +2,17 @@ import React from 'react'
 import { InputGroup, Input, InputGroupAddon, InputGroupText, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import media from 'components/common/base/media';
 
 const Wrapper = styled.div`
     .form-row {
         margin-bottom: 12px;
+
+        .col-md-6 {
+            ${media.tablet`
+                margin-bottom: 1rem;
+            `}
+        }
     }
 
     select {

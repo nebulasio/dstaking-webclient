@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import media from 'components/common/base/media';
 
 const Wrapper = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -25,6 +26,10 @@ const TabList = styled.div`
             color: ${(props) => props.theme.primaryColor};
             text-decoration: none;
         }
+
+        ${media.tablet`
+            margin: 0 20px;
+        `}
     }
 `
 

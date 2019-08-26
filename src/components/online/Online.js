@@ -9,9 +9,14 @@ import { Neb } from 'utils';
 import NebPay from "nebpay.js";
 import nebulas from 'nebulas';
 import { Group, TextGroup } from 'components/common/base';
+import media from 'components/common/base/media';
+
 
 const Wrapper = styled.div`
     margin: 40px 135px;
+    ${media.tablet`
+        margin: 40px;
+    `}
 
     .form-group {
         margin-bottom: 2rem;

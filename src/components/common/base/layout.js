@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'components/common/base/media';
 
 const Group = styled.div`
     margin: ${props => props.margin ? props.margin : "40px auto"} ;
@@ -20,6 +21,10 @@ const TextGroup = styled.div`
             padding: 10px;
             border: none;
             border-bottom: 1px solid #ccc;
+
+            ${media.tablet`
+                width: 100%;
+            `}
         }
     }
 

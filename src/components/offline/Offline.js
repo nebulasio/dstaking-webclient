@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import classnames from 'classnames';
 import StakingQuery from 'components/common/staking_query'
 import StakingParam from 'components/common/staking_param'
-
 import { Button, ButtonOutline, Group, InputText, Textarea, Errmsg, TextGroup } from 'components/common/base'
 import { MdFileUpload } from "react-icons/md";
 import { Neb } from 'utils';
 import { saveAs } from 'file-saver';
+import media from 'components/common/base/media';
 
 const Wrapper = styled.div`
     padding: 20px 0 0;
@@ -41,6 +41,11 @@ const Wrapper = styled.div`
     .tab-content {
         background-color: #fff;
         padding: 40px 135px;
+
+        ${media.tablet`
+            padding: 40px;
+        `}
+
     }
 `
 

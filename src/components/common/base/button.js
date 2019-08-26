@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'components/common/base/media';
 
 const _ButtonBase = styled.button`
     padding: 18px 92px;
@@ -21,6 +22,10 @@ const _ButtonBase = styled.button`
         background-color: #CED0D9;
         border-color: #CED0D9;
     }
+
+    ${media.tablet`
+        padding: 18px;
+    `}
 `
 
 const ButtonOutline = styled(_ButtonBase)`
@@ -28,6 +33,10 @@ const ButtonOutline = styled(_ButtonBase)`
     font-size:14px;
     color: ${(props) => props.theme.primaryColor};
     background-color: #fff;
+
+    ${media.tablet`
+        padding: 18px;
+    `}
 `
 
 const Button = styled(_ButtonBase)`
