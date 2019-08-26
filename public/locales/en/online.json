@@ -12,6 +12,6 @@
     "scan qrcode use support nas wallet": "Scan genereated QR code via a wallet that supports NAS",
     "download others wallet": "Download another supported wallet",
     "scan qrcode use nas nano": "Scan QR code with NAS nano Pro",
-    "notice wallet address and query address": "Warning wallet address and query address is the same",
+    "notice wallet address and query address": "Verify the wallet address is the same as the entered address",
     "download nas nano": "Download NAS nano Pro"
 }
