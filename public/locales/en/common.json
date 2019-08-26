@@ -1,12 +1,12 @@
 {
-    "online staking": "Online Staking",
-    "offline staking": "Offline Staking",
-    "query": "Query",
-    "wallet address can not empty": "Wallet address can't empty",
-    "wallet balance": "Wallet Balance",
+    "online staking": "Online staking",
+    "offline staking": "Offline staking",
+    "query": "Query status",
+    "wallet address can not empty": "Wallet address must be entered",
+    "wallet balance": "Wallet balance",
     "already staking": "Already staking",
-    "type wallet address": "Type NAS address",
+    "type wallet address": "Enter your NAS address",
     "staking": "Staking",
-    "min staking": "Min staking",
-    "cancel staking": "Cancel Staking"
+    "min staking": "Minimum staking amount",
+    "cancel staking": "Cancel active staking"
 }
