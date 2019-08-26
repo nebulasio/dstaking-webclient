@@ -6,6 +6,8 @@ import QRCode from 'qrcode.react';
 import StakingQuery from 'components/common/staking_query'
 import StakingParam from 'components/common/staking_param'
 import { Neb } from 'utils';
+import NebPay from "nebpay.js";
+import nebulas from 'nebulas';
 
 const Wrapper = styled.div`
     margin: 40px 135px;
@@ -121,7 +123,15 @@ class Online extends Component {
             stakingType: e.target.id.split("radio-")[1]
         }, () => {
             const { stakingAmount, stakingSelect, stakingType } = this.state;
-            if (stakingType === "third-wallet") {
+
+            if (stakingType === "nas-ext") {
+                this.setState({
+                    showQrcode: false,
+                });
+
+                // call nas ext
+
+            } else if (stakingType === "third-wallet") {
                 // re-generate qrcode
                 this.setState({
                     qrcodeText: Neb.generateQrcode("1", "0", stakingType)
@@ -137,10 +147,17 @@ class Online extends Component {
             [e.target.name]: e.target.value
         }, () => {
             const { stakingSelect, stakingType } = this.state;
+
+            if (stakingType === "nas-nano") {
+                this.setState({
+                    showQrcode: true,
+                });
+            }
+
             if (stakingSelect === "0") {
                 // re-generate qrcode
                 this.setState({
-                    qrcodeText: Neb.generateQrcode("0", "0", stakingType)
+                    qrcodeText: Neb.generateQrcode("0", "0", stakingType),
                 });
             }
         });
@@ -168,8 +185,43 @@ class Online extends Component {
 
         const { stakingAmount, stakingSelect, stakingType } = this.state;
 
+        if (stakingType === "nas-nano") {
+
+            this.setState({
+                showQrcode: true,
+            });
+
+        } else if (stakingType === "nas-ext") {
+
+            const nebPay = new NebPay();
+            // set default gas price, limit
+            const gasPrice = 2 * Math.pow(10, 10);
+            const gasLimit = 200000;
+
+            const actions = ["cancel", "staking"];
+            let value;
+            if (stakingSelect === "1") { // staking
+                value = nebulas.Unit.nasToBasic(stakingAmount);
+            } else { // cancel staking
+                value = ""
+            }
+
+            nebPay.call(staking_proxy_contract, 0, actions[stakingSelect], `[${value}]`, {
+                qrcode: {
+                    showQRCode: true
+                },
+                extension: {
+                    openExtension: true
+                },
+
+                gasPrice,
+                gasLimit,
+                listener: (serialNumber, resp) => { console.log(serialNumber, resp); }
+            });
+
+        }
+
         this.setState({
-            showQrcode: true,
             qrcodeText: Neb.generateQrcode(stakingSelect, stakingAmount, stakingType)
         });
     }
@@ -185,7 +237,7 @@ class Online extends Component {
                     <StakingParam {...this.state} onChange={this.handleChangeCustomStaking} min_staking_amount={min_staking_amount} />
                 </FormGroup>
 
-                {stakingSelect === "1" &&
+                {(stakingSelect === "1" || stakingType === "nas-ext") &&
                     <FormGroup>
                         <Button color="primary" size="lg" disabled={this.isDisableSubmit()} block onClick={this.handleSubmit}>质押</Button>
                     </FormGroup>
@@ -241,7 +293,7 @@ class Online extends Component {
                     <FormGroup>
                         <Label>质押方式</Label>
                         <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-nano" name="radio-staking-start" label="NAS nano" />
-                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-ext" name="radio-staking-start" label="NAS chrome extension" />
+                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-ext" name="radio-staking-start" label="Nebulas 谷歌插件" />
                         <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-third-wallet" name="radio-staking-start" label="三方钱包" />
                     </FormGroup>
 
