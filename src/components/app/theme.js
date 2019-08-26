@@ -1,5 +1,5 @@
 const theme = {
-    fontFamily: 'PingFangSC, Consolas',
+    fontFamily: 'Open Sans, sans-serif, PingFangSC',
     primaryColor: '#6766FF',
     primaryHoverColor: '#5D5CE6',
     borderColor: '#E6E7F0',
