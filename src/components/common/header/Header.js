@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import {
     Container,
     Collapse,
@@ -58,6 +58,8 @@ function Header() {
 
     const { t, i18n } = useTranslation();
 
+    const [isOpen, setIsOpen] = useState(false);
+
 
     function showCurrentLanguage() {
         if (i18n.language === "zh-CN") {
@@ -65,6 +67,10 @@ function Header() {
         } else {
             return "EN";
         }
+    }
+
+    function HandleToggle() {
+        return setIsOpen(!isOpen);
     }
 
     return (
@@ -75,22 +81,25 @@ function Header() {
                         <img className="logo" src={logo} />
                         NAX dStaking
                     </NavbarBrand>
-                    <Nav className="ml-auto" navbar>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                <IoIosGlobe /> {showCurrentLanguage()}
-                            </DropdownToggle>
-                            <DropdownMenu right>
+                    <NavbarToggler onClick={HandleToggle} />
+                    <Collapse isOpen={isOpen} navbar>
+                        <Nav className="ml-auto" navbar>
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    <IoIosGlobe /> {showCurrentLanguage()}
+                                </DropdownToggle>
+                                <DropdownMenu right>
 
-                                <DropdownItem onClick={() => i18n.changeLanguage('en')}>
-                                    EN
+                                    <DropdownItem onClick={() => i18n.changeLanguage('en')}>
+                                        EN
                                 </DropdownItem>
-                                <DropdownItem onClick={() => i18n.changeLanguage('zh-CN')}>
-                                    中文
+                                    <DropdownItem onClick={() => i18n.changeLanguage('zh-CN')}>
+                                        中文
                                 </DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </Nav>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </Nav>
+                    </Collapse>
                 </Container>
             </Navbar>
         </Wrapper>
