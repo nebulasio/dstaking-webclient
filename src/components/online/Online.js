@@ -71,6 +71,12 @@ const QRCodeWrapper = styled.div`
     box-shadow:0px 20px 60px 0px rgba(134,141,167,0.2);
     border:1px solid rgba(230,231,235,1);
     padding: 10px;
+
+    ${media.tablet`
+        flex-direction: column;
+        padding: 40px;
+        align-items: center;
+    `}
 `
 
 const QRCodeText = styled.div`
@@ -78,6 +84,10 @@ const QRCodeText = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    ${media.tablet`
+        margin: 20px 0 0 0;
+    `}
 
     h3 {
         font-size:16px;
