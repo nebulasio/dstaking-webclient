@@ -275,14 +275,13 @@ class Online extends Component {
 
         const ThirdStaking = <>
             <TextGroup>
-                <p><label>{t("transfer address")}: </label><input type="text" defaultValue={staking_proxy_contract} /></p>
+                <p><label>{t("transfer address")}: </label><input type="text" className="nas-addr" defaultValue={staking_proxy_contract} /></p>
                 <p><label>{t("transfer amount")}: </label> 0 NAS</p>
                 <p><label>{t("staking amount")}: </label> {t("staking all balance")}</p>
-
             </TextGroup>
 
             <QRCodeWrapper>
-                <QRCode size={140} value={qrcodeText} />
+                <QRCode size={140} value={staking_proxy_contract} />
                 <QRCodeText>
                     <h3>{t("scan qrcode use support nas wallet")}</h3>
                     <a href="https://nebulas.io/wallets.html">{t("download others wallet")} ></a>

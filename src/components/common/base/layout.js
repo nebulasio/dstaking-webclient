@@ -22,6 +22,10 @@ const TextGroup = styled.div`
             border: none;
             border-bottom: 1px solid #ccc;
 
+            &.nas-addr {
+                font-size: 0.8rem;
+            }
+
             ${media.tablet`
                 width: 100%;
             `}
@@ -35,6 +39,7 @@ const TextGroup = styled.div`
     }
 
     a {
+        font-size: 1rem;
         color: ${props => props.theme.primaryColor};
         &:hover {
             text-decoration: none;

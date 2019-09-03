@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Neb } from 'utils';
 import { Spinner } from 'reactstrap';
 import { withTranslation } from 'react-i18next';
+import { TextGroup } from 'components/common/base';
 
 const Wrapper = styled.div`
     .spinner-grow {
@@ -143,30 +144,30 @@ class StakingQuery extends Component {
     render() {
 
         const { nasAddr, nasBalance, nasStaking, nonce, loading } = this.state;
-        const { t, type } = this.props;
+        const { t } = this.props;
 
         const showResult = () => {
             if (nasBalance && nasStaking) {
                 return (
-                    <ResultWrapper>
-                        <ResultItem>
-                            <label>{t("wallet balance")}</label>
-                            <p>{nasBalance} NAS</p>
-                        </ResultItem>
-
-                        <ResultItem>
-                            <label>{t("already staking")}</label>
-                            <p>{nasStaking} NAS</p>
-                        </ResultItem>
-
-                        {type === "offline" &&
+                    <>
+                        <ResultWrapper>
+                            <ResultItem>
+                                <label>{t("wallet balance")}</label>
+                                <p>{nasBalance} NAS</p>
+                            </ResultItem>
+                            <ResultItem>
+                                <label>{t("already staking")}</label>
+                                <p>{nasStaking} NAS</p>
+                            </ResultItem>
                             <ResultItem>
                                 <label>Nonce</label>
                                 <p>{nonce}</p>
                             </ResultItem>
-                        }
-
-                    </ResultWrapper>
+                        </ResultWrapper>
+                        <TextGroup>
+                            <a href={`https://explorer.nebulas.io/#/address/${nasAddr}`} target="__blank">Go to explorer ></a>
+                        </TextGroup>
+                    </>
                 );
             } else {
                 return null;
