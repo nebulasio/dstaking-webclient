@@ -6,7 +6,6 @@ import theme from './theme';
 
 const Wrapper = styled.div`
   background-color: #FAFAFC;
-  height:100vh;
   min-height:100vh;
 `
 

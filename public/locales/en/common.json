@@ -3,10 +3,11 @@
     "offline staking": "Offline staking",
     "query": "Query status",
     "wallet address can not empty": "Wallet address must be entered",
+    "wallet address is invalid": "Wallet address is invalid",
     "wallet balance": "Wallet balance",
     "already staking": "Already staking",
     "type wallet address": "Enter your NAS address",
     "staking": "Staking",
-    "min staking": "Minimum staking amount",
+    "min staking": "Minimum staking ",
     "cancel staking": "Cancel active staking"
 }

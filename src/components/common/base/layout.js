@@ -13,8 +13,8 @@ const TextGroup = styled.div`
 
     p {
         margin: 0;
-        padding: 0;
-        font-size: 14px;
+        padding: 4px;
+        font-size: 1rem;
 
         input {
             width: 70%;

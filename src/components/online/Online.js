@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import QRCode from 'qrcode.react';
 import StakingQuery from 'components/common/staking_query'
 import StakingParam from 'components/common/staking_param'
-import { Neb } from 'utils';
+import { Neb } from 'utils/neb';
+import { isInteger } from 'utils/common';
 import NebPay from "nebpay.js";
 import nebulas from 'nebulas';
 import { Group, TextGroup } from 'components/common/base';
@@ -150,9 +151,18 @@ class Online extends Component {
 
     handleChangeCustomStaking = e => {
 
+        let value = e.target.value;
+        if (e.target.name === "stakingAmount") {
+            if (!isInteger(value) && value !== "") {
+                return false;
+            }
+        }
+
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: value
         }, () => {
+
+
             const { stakingSelect, stakingType } = this.state;
 
             if (stakingType === "nas-nano") {
@@ -179,7 +189,7 @@ class Online extends Component {
             return false;
         }
 
-        if (parseInt(stakingAmount) < parseInt(min_staking_amount)) {
+        if (parseInt(stakingAmount) < parseInt(min_staking_amount) || stakingAmount === "") {
             return true;
         } else {
             return false;
@@ -238,6 +248,7 @@ class Online extends Component {
         const { stakingType, stakingSelect, showQrcode, qrcodeText } = this.state;
 
         // custom stking nas amount, cancel staking
+        // nas nano & nas chrome ext
         const CustomStaking =
             <>
                 <FormGroup>
@@ -275,7 +286,7 @@ class Online extends Component {
 
         const ThirdStaking = <>
             <TextGroup>
-                <p><label>{t("transfer address")}: </label><input type="text" className="nas-addr" defaultValue={staking_proxy_contract} /></p>
+                <p><label>{t("transfer address")}: </label><input type="text" className="nas-addr" value={staking_proxy_contract} onChange={() => false} /></p>
                 <p><label>{t("transfer amount")}: </label> 0 NAS</p>
                 <p><label>{t("staking amount")}: </label> {t("staking all balance")}</p>
             </TextGroup>

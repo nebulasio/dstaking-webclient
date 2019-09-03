@@ -29,11 +29,7 @@ class Neb {
                     "type": "call"
                 }
             }).then(r => {
-                if (r.execute_err) {
-                    reject(r.execute_err)
-                } else {
-                    resolve(JSON.parse(r.result))
-                }
+                resolve(JSON.parse(r.result))
             }).catch(e => {
                 reject(e);
             });
@@ -62,7 +58,8 @@ class Neb {
                 this.getCurrentStakings(address)
             ]);
 
-            console.log(currentStaking);
+            // console.log(accountState);
+            // console.log(currentStaking);
 
             // caculate nas staking sum
             let stakingSum = Number(0);
@@ -166,7 +163,7 @@ class Neb {
                 pay: {
                     currency: "NAS",
                     value: 0,
-                    to: staking_proxy_contract,
+                    to: staking_proxy_contract
                 }
             },
             des: "confirmTransfer",

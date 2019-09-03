@@ -116,6 +116,11 @@ class StakingQuery extends Component {
             return false;
         }
 
+        if (!Neb.isValidAddress(nasAddr)) {
+            window.alert(t("wallet address is invalid"));
+            return false;
+        }
+
         try {
 
             this.setState({
@@ -125,10 +130,6 @@ class StakingQuery extends Component {
             const { nasBalance, nasStaking, nonce } = await this.neb.getStakingStatus(nasAddr);
 
             this.setState({
-                loading: false
-            });
-
-            this.setState({
                 nasBalance,
                 nasStaking,
                 nonce
@@ -136,6 +137,10 @@ class StakingQuery extends Component {
 
         } catch (err) {
             console.error(err);
+        } finally {
+            this.setState({
+                loading: false
+            });
         }
 
     }

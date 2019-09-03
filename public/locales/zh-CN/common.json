@@ -3,6 +3,7 @@
     "offline staking": "离线质押",
     "query": "查询",
     "wallet address can not empty": "查询地址不能为空！",
+    "wallet address is invalid": "查询地址不是合法地址",
     "wallet balance": "钱包余额",
     "already staking": "已质押",
     "type wallet address": "请输入NAS钱包地址",

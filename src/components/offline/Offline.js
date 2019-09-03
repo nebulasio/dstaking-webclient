@@ -10,6 +10,7 @@ import { MdFileUpload } from "react-icons/md";
 import { Neb } from 'utils';
 import { saveAs } from 'file-saver';
 import media from 'components/common/base/media';
+import { isInteger } from 'utils/common';
 
 const Wrapper = styled.div`
     padding: 20px 0 0;
@@ -97,7 +98,7 @@ class Offline extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            activeTab: '1', // 1:staking status query, 2: create offline raw transaction, 3: send raw transaction
+            activeTab: '2', // 1:staking status query, 2: create offline raw transaction, 3: send raw transaction
             keystoreContent: "",
             keystoreFilename: "",
             rawTransaction: "",
@@ -125,8 +126,16 @@ class Offline extends Component {
     }
 
     handleOnChange = e => {
+
+        let value = e.target.value;
+        if (e.target.name === "stakingAmount") {
+            if (!isInteger(value) && value !== "") {
+                return false;
+            }
+        }
+
         this.setState({
-            [e.target.name]: e.target.value,
+            [e.target.name]: value,
             accountPwdErr: false,
         });
     }
@@ -149,7 +158,13 @@ class Offline extends Component {
                     this.setState({
                         keystoreContent: keystore,
                         keystoreFilename: fileName,
+                        accountPwd: "",
                         showInputPwdPanel: true,
+                        showStakingParamPanel: false,
+                        stakingAmount: min_staking_amount,
+                        stakingSelect: "1", // 1:staking, 0:cancel staking
+                        stakingNonce: "",
+                        rawTransaction: ""
                     });
 
                     // console.log(keystore, fileName);
@@ -180,7 +195,7 @@ class Offline extends Component {
                 accountPwdErr: true
             });
 
-            window.alert(t('wrong password'));
+            // window.alert(t('wrong password'));
 
         }
     }
@@ -268,7 +283,7 @@ class Offline extends Component {
     }
 
     render() {
-        const { t, i18n } = this.props;
+        const { t } = this.props;
         const { keystoreContent, keystoreFilename, rawTransaction, accountPwd, accountPwdErr, showInputPwdPanel, showStakingParamPanel, offlineRawTransaction } = this.state;
 
         return (
@@ -315,7 +330,7 @@ class Offline extends Component {
                         {keystoreFilename && keystoreContent &&
                             <TextGroup>
                                 <p> <label>{t('file name')}:</label> {keystoreFilename}</p>
-                                <p> <label>{t('nas address')}:</label> <input type="text" defaultValue={keystoreContent.address} /></p>
+                                <p> <label>{t('nas address')}:</label> <input type="text" className="nas-addr" value={keystoreContent.address} onChange={() => false} /></p>
                             </TextGroup>
                         }
 

@@ -32,6 +32,7 @@ const Wrapper = styled.div`
         border-right: none;
 
         &::placeholder {
+            font-size: 0.8rem;
             color: ${(props) => props.theme.inputPlaceholderColor};
         }
 

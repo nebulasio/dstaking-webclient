@@ -6,7 +6,7 @@ import media from 'components/common/base/media';
 
 const Wrapper = styled.div`
     margin: 40px auto;
-    width:750px;
+    width: ${props => props.theme.contentWidth};
     background:rgba(255,255,255,1);
     border:1px solid rgba(239,239,239,1);
     font-family: ${props => props.theme.fontFamily};
@@ -15,8 +15,6 @@ const Wrapper = styled.div`
         width: auto;
     `}
 `
-
-
 
 export default class MainContainer extends Component {
     render() {

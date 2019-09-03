@@ -1,4 +1,5 @@
 const theme = {
+    contentWidth: '768px',
     fontFamily: 'Open Sans, sans-serif, PingFangSC',
     primaryColor: '#6766FF',
     primaryHoverColor: '#5D5CE6',
