@@ -9,5 +9,6 @@
     "type wallet address": "请输入NAS钱包地址",
     "staking": "质押",
     "min staking": "最小质押",
-    "cancel staking": "取消质押"
+    "cancel staking": "取消质押",
+    "go to explorer": "去浏览器查看"
 }

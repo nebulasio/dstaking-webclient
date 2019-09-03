@@ -14,5 +14,6 @@
     "generate raw tx": "生成 Raw Transaction",
     "save file": "保存文件",
     "type raw tx": "请粘贴离线生成的 raw transaction",
-    "upload tx file": "上传离线生成的 Raw Transaction 文件"
+    "upload tx file": "上传离线生成的 Raw Transaction 文件",
+    "send raw tx success": "发送离线 Raw Transaction 成功"
 }

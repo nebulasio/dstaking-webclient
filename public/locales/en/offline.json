@@ -14,5 +14,6 @@
     "generate raw tx": "Generate raw transaction",
     "save file": "Save raw transaction to file",
     "type raw tx": "Paste your offline generated raw transaction here",
-    "upload tx file": "Upload and submit raw transaction file"
+    "upload tx file": "Upload and submit raw transaction file",
+    "send raw tx success": "Send Raw Transaction success"
 }

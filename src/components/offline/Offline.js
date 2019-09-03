@@ -110,8 +110,9 @@ class Offline extends Component {
             stakingAmount: min_staking_amount,
             stakingSelect: "1", // 1:staking, 0:cancel staking
             stakingNonce: "",
-            offlineRawTransaction: ""
-
+            offlineRawTransaction: "",
+            // TAB-3, send tx
+            txhash: "",
         };
 
         this.account = null;
@@ -245,6 +246,11 @@ class Offline extends Component {
         try {
             const neb = new Neb();
             const res = await neb.sendRawTransaction(this.state.offlineRawTransaction);
+
+            this.setState({
+                txhash: res.txhash
+            });
+
             console.log(res);
         } catch (err) {
             window.alert(err);
@@ -284,7 +290,8 @@ class Offline extends Component {
 
     render() {
         const { t } = this.props;
-        const { keystoreContent, keystoreFilename, rawTransaction, accountPwd, accountPwdErr, showInputPwdPanel, showStakingParamPanel, offlineRawTransaction } = this.state;
+        const { keystoreContent, keystoreFilename, rawTransaction, accountPwd, accountPwdErr,
+            showInputPwdPanel, showStakingParamPanel, offlineRawTransaction, txhash } = this.state;
 
         return (
             <Wrapper>
@@ -378,6 +385,14 @@ class Offline extends Component {
                         <Group margin="20px auto">
                             <Button disabled={offlineRawTransaction ? false : true} block onClick={this.handleSendRawTransction}>{t('send tx')}</Button>
                         </Group>
+
+                        {txhash &&
+                            <TextGroup>
+                                <p>{t("send raw tx success")}</p>
+                                <a href={`https://explorer.nebulas.io/#/tx/${txhash}`} target="__blank">{t('go to explorer')} ></a>
+                            </TextGroup>
+                        }
+
 
                     </TabPane>
                 </TabContent>

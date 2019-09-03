@@ -9,5 +9,6 @@
     "type wallet address": "Enter your NAS address",
     "staking": "Staking",
     "min staking": "Minimum staking ",
-    "cancel staking": "Cancel active staking"
+    "cancel staking": "Cancel active staking",
+    "go to explorer": "Go to explorer"
 }

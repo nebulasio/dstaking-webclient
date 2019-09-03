@@ -170,7 +170,7 @@ class StakingQuery extends Component {
                             </ResultItem>
                         </ResultWrapper>
                         <TextGroup>
-                            <a href={`https://explorer.nebulas.io/#/address/${nasAddr}`} target="__blank">Go to explorer ></a>
+                            <a href={`https://explorer.nebulas.io/#/address/${nasAddr}`} target="__blank">{t("go to explorer")} ></a>
                         </TextGroup>
                     </>
                 );
