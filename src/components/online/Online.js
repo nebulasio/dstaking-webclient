@@ -255,7 +255,7 @@ class Online extends Component {
                     <StakingParam {...this.state} onChange={this.handleChangeCustomStaking} min_staking_amount={min_staking_amount} />
                 </FormGroup>
 
-                {stakingType === "nas-ext" &&
+                {stakingType === "nas-ext" && window.webExtensionWallet === undefined &&
                     <TextGroup>
                         <a href="https://chrome.google.com/webstore/detail/nasextwallet/gehjkhmhclgnkkhpfamakecfgakkfkco" target="__blank">
                             {t("get nebulas ext")}

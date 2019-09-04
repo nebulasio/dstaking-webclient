@@ -2,7 +2,7 @@
     "query staking status": "质押状态查询",
     "staking type": "质押方式",
     "nebulas chrome ext": "Nebulas 谷歌插件钱包",
-    "get nebulas ext": "去获取 Nebulas 谷歌插件钱包",
+    "get nebulas ext": "去获取 Nebulas 谷歌插件钱包，安装后刷新本页",
     "other wallet": "三方钱包",
     "staking": "质押",
     "transfer address": "转账地址",

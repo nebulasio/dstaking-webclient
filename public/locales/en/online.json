@@ -2,7 +2,7 @@
     "query staking status": "Query Staking status",
     "staking type": "Staking type",
     "nebulas ext": "Nebulas Chrome wallet",
-    "get nebulas ext": "Get the Nebulas Chrome wallet",
+    "get nebulas ext": "Get the Nebulas Chrome wallet, refresh this page after installed",
     "other wallet": "Others wallet",
     "staking": "Staking",
     "transfer address": "Transfer address",
