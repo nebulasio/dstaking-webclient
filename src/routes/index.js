@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from 'components/app';
 import Online from "./online"
 import Offline from "./offline"
@@ -33,9 +33,11 @@ export default class Routes extends Component {
 
                     <App>
                         {this.props.children}
-                        <Route path="/" exact component={Online} />
-                        <Route path="/online/" component={Online} />
-                        <Route path="/offline/" component={Offline} />
+                        <Switch>
+                            <Route path="/" exact component={Online} />
+                            <Route path="/online/" component={Online} />
+                            <Route path="/offline/" component={Offline} />
+                        </Switch>
                     </App>
                 </Router>
             </Suspense>
