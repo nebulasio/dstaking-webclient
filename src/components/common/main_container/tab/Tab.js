@@ -3,9 +3,13 @@ import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import media from 'components/common/base/media';
+import { IoIosHelpCircleOutline } from 'react-icons/io'
+import ReactTooltip from 'react-tooltip'
+import 'styles/theme.scss'
 
 const Wrapper = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
+    position: relative;
 `
 const TabList = styled.div`
     display: flex;
@@ -33,6 +37,20 @@ const TabList = styled.div`
     }
 `
 
+const StakingNote = styled.div`
+    position: absolute;
+    right: 15px;
+    top: 28px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    svg {
+        color: #9C9DB2;
+    }
+`
+
 export default function Tab() {
     const { t } = useTranslation("common");
 
@@ -46,6 +64,10 @@ export default function Tab() {
                 <NavLink to="/online/" isActive={isActiveOnlineTab} activeClassName="selected">{t('online staking')}</NavLink>
                 <NavLink to="/offline/" activeClassName="selected">{t('offline staking')}</NavLink>
             </TabList>
+            <StakingNote data-tip data-for='staking-note'  ><IoIosHelpCircleOutline size="18px" /></StakingNote>
+            <ReactTooltip id='staking-note' place="bottom" effect="solid" >
+                <div dangerouslySetInnerHTML={{ __html: t("staking-note") }} />
+            </ReactTooltip>
         </Wrapper>
     )
 }

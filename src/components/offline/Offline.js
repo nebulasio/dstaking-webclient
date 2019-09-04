@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import styled from 'styled-components';
 import classnames from 'classnames';
 import StakingQuery from 'components/common/staking_query'

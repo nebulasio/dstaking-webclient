@@ -10,5 +10,6 @@
     "staking": "Staking",
     "min staking": "Minimum staking ",
     "cancel staking": "Cancel active staking",
-    "go to explorer": "Go to explorer"
+    "go to explorer": "Go to explorer",
+    "staking-note": "<p>This is a global react component tooltip</p><p>You can put every thing here</p><li>Word</li><li>Chart</li><li>Else</li></ul>"
 }
