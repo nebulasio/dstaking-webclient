@@ -98,7 +98,7 @@ class Offline extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            activeTab: '2', // 1:staking status query, 2: create offline raw transaction, 3: send raw transaction
+            activeTab: '1', // 1:staking status query, 2: create offline raw transaction, 3: send raw transaction
             keystoreContent: "",
             keystoreFilename: "",
             rawTransaction: "",

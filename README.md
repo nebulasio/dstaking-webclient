@@ -1,68 +1,22 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Pledge notice
+1. The assets that the user participates in the pledge still exist in their own wallet.
+2. At the beginning of each cycle (about 25 hours), NAX will be dynamically issued to the pledge address according to the pledge rate of the whole network in the previous cycle.
+3. The more NASs that are pledged in the wallet, the longer the continuous pledge cycle (coin age), the more NAX is obtained.
+4. If the pledge is reduced or the pledge is cancelled, the age of the coin will return to the initial state, and the additional pledge will calculate the average coin age.
+5. When the wallet balance is less than the actual pledge, the pledge status is automatically released.
 
-## Available Scripts
+### Online
+1. Precheck your wallet address before dStaking.
+2. Select your wallet for dStaking from NAS nano Wallet, Nebulas Google plugin wallet and compatible TPA wallets.
+3. Enter the amount of NAS for dStaking. TPA wallets only authorize the transfer of the whole wallet when the dStaking amount is entered 0 NAS.
+4. Click dStaking and decided to transfer via scan with NAS nano or pay via Nebulas Google plugin.
 
-In the project directory, you can run:
 
-### `npm start`
+### Offline
+1. Enter your wallet address to obtain the account information with a computer connected to the internet.
+2. Download the dStaking page, copy it to a computer disconnected from the internet, select offline transaction, upload keystore document, enter and confirm the password.
+3. Enter your dStaking amount of NAS, fill in the blank of Nonce, the value of which shall be the number checked from the account information plus 1, and save the document when Raw Transaction is generated. 
+4. Copy raw_transaction.txt to the computer connected to the internet, select “send the transaction”, upload Raw Transaction and click to send the transaction.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Language
+#### [EN](README.md)|[中文](README.zh.md)
