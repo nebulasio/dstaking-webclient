@@ -11,8 +11,11 @@ const Wrapper = styled.div`
 `
 
 const Footer = styled.footer`
-  height: 50px;
-  text-align: center;
+height: 100px;
+display: flex;
+text-align: center;
+justify-content: center;
+align-items: center;
 
   img {
     margin-left: 0.5rem;
