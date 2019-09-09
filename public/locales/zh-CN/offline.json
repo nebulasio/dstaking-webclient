@@ -1,0 +1,19 @@
+{
+    "online computer": "在线电脑",
+    "offline computer": "离线电脑",
+    "get account state": "获取账户信息",
+    "generate offline  raw tx": "生成离线交易",
+    "send tx": "发送交易",
+    "select keystore": "选择 keystore 文件",
+    "keystore format wrong": "keystore 文件内容不符合标准",
+    "file name": "文件名",
+    "nas address": "NAS 地址",
+    "type password": "请输入密码",
+    "wrong password": "密码错误",
+    "comfirm": "确认",
+    "generate raw tx": "生成 Raw Transaction",
+    "save file": "保存文件",
+    "type raw tx": "请粘贴离线生成的 raw transaction",
+    "upload tx file": "上传离线生成的 Raw Transaction 文件",
+    "send raw tx success": "发送离线 Raw Transaction 成功"
+}

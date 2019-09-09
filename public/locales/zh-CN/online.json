@@ -1,0 +1,17 @@
+{
+    "query staking status": "质押状态查询",
+    "staking type": "质押方式",
+    "nebulas chrome ext": "Nebulas 谷歌插件钱包",
+    "get nebulas ext": "去获取 Nebulas 谷歌插件钱包，安装后刷新本页",
+    "other wallet": "三方钱包",
+    "staking": "质押",
+    "transfer address": "转账地址",
+    "transfer amount": "转账金额",
+    "staking amount": "质押金额",
+    "staking all balance": "默认为该钱包内所有 NAS 余额",
+    "scan qrcode use support nas wallet": "请使用支持 NAS 转账的钱包扫码",
+    "download others wallet": "下载支持 NAS 转账的钱包",
+    "scan qrcode use nas nano": "请使用 Nas nano pro 扫码",
+    "notice wallet address and query address": "注意调用的钱包地址和查询地址的一致性",
+    "download nas nano": "下载 Nas nano pro"
+}

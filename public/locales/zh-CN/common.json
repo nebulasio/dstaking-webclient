@@ -1,0 +1,15 @@
+{
+    "online staking": "在线质押",
+    "offline staking": "离线质押",
+    "query": "查询",
+    "wallet address can not empty": "查询地址不能为空！",
+    "wallet address is invalid": "查询地址不是合法地址",
+    "wallet balance": "钱包余额",
+    "already staking": "已质押",
+    "type wallet address": "请输入NAS钱包地址",
+    "staking": "质押",
+    "min staking": "最小质押",
+    "cancel staking": "取消质押",
+    "go to explorer": "去浏览器查看",
+    "staking-note": "<p>质押须知</p><ul><li>用户参与质押的资产依然存在自己的钱包中。</li><li>每周期(约25小时)开始时会根据上一周期全网质押率向质押地址动态发放NAX。</li><li>钱包中质押的NAS数量越多，连续质押周期(币龄)越长，所获得NAX数量越多。</li><li>减少质押或取消质押则币龄恢复到初始状态，追加质押则会计算平均币龄。</li><li>当钱包余额小于实际质押额，则质押状态自动解除。</li></ul>"
+}

@@ -1,0 +1,19 @@
+{
+    "online computer": "Online computer",
+    "offline computer": "Offline computer",
+    "get account state": "Get account state",
+    "generate offline  raw tx": "Generate raw offline transaction",
+    "send tx": "Submit raw transaction",
+    "select keystore": "Select your keystore file",
+    "keystore format wrong": "Your keystore file format is incorrect. Please verify you have selected the correct file and try again.",
+    "file name": "File name",
+    "nas address": "NAS address",
+    "type password": "Please enter your keystore file password",
+    "wrong password": "The entered password is incorrect. Please try again.",
+    "comfirm": "Comfirm",
+    "generate raw tx": "Generate raw transaction",
+    "save file": "Save raw transaction to file",
+    "type raw tx": "Paste your offline generated raw transaction here",
+    "upload tx file": "Upload and submit raw transaction file",
+    "send raw tx success": "Send Raw Transaction success"
+}
