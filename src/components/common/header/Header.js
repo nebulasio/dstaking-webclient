@@ -14,7 +14,7 @@ import {
     DropdownItem
 } from 'reactstrap';
 import styled from 'styled-components';
-import { IoIosGlobe } from "react-icons/io";
+import { IoIosGlobe, IoMdDownload } from "react-icons/io";
 import { useTranslation } from 'react-i18next';
 import logo from "assets/images/nax.png"
 
@@ -56,7 +56,7 @@ const Wrapper = styled.div`
 
 function Header() {
 
-    const { t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation("common");
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -84,6 +84,9 @@ function Header() {
                     <NavbarToggler onClick={HandleToggle} />
                     <Collapse isOpen={isOpen} navbar>
                         <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                 <NavLink href={process.env.REACT_APP_RELEASE_URL}><IoMdDownload /> {t("download")}</NavLink>
+                            </NavItem>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
                                     <IoIosGlobe /> {showCurrentLanguage()}
