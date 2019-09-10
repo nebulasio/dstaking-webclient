@@ -1,6 +1,6 @@
 {
-    "online computer": "在线电脑",
-    "offline computer": "离线电脑",
+    "online computer": "电脑需接入网络",
+    "offline computer": "电脑需保持断网",
     "get account state": "获取账户信息",
     "generate offline  raw tx": "生成离线交易",
     "send tx": "发送交易",

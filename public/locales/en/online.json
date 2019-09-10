@@ -1,8 +1,8 @@
 {
-    "query staking status": "Query Staking status",
+    "query staking status": "Check dStaking status",
     "staking type": "Staking type",
-    "nebulas ext": "Nebulas Chrome wallet",
-    "get nebulas ext": "Get the Nebulas Chrome wallet, refresh this page after installed",
+    "nebulas ext": "Nebulas Chrome Extension",
+    "get nebulas ext": "Get the Nebulas Chrome Extension, refresh this page after installed",
     "other wallet": "Others wallet",
     "staking": "Staking",
     "transfer address": "Transfer address",
