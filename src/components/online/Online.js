@@ -225,7 +225,7 @@ class Online extends Component {
 
             nebPay.call(staking_proxy_contract, 0, actions[stakingSelect], `[${value}]`, {
                 qrcode: {
-                    showQRCode: true
+                    showQRCode: false
                 },
                 extension: {
                     openExtension: true
