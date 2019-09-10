@@ -1,8 +1,8 @@
 {
     "download":"Download the web client",
-    "online staking": "Online staking",
-    "offline staking": "Offline staking",
-    "query": "Check dStaking status",
+    "online staking": "Online dStaking",
+    "offline staking": "Offline dStaking",
+    "query": "Check",
     "wallet address can not empty": "Please enter NAS address (n1xxx)",
     "wallet address is invalid": "NAS address: n1xxx",
     "wallet balance": "Wallet balance",
