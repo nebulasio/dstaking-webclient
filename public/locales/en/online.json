@@ -1,6 +1,7 @@
 {
     "query staking status": "Check dStaking status",
     "staking type": "Select one way to dStaking",
+    "NAS nano": "NAS nano Pro",
     "nebulas chrome ext": "Nebulas Chrome Extension",
     "get nebulas ext": "Get the Nebulas Chrome Extension, refresh this page after installed",
     "other wallet": "Others wallet",
@@ -12,6 +13,6 @@
     "scan qrcode use support nas wallet": "Scan genereated QR code via a wallet that supports NAS",
     "download others wallet": "Download another supported wallet",
     "scan qrcode use nas nano": "Scan QR code with NAS nano Pro",
-    "notice wallet address and query address": "Verify the wallet address is the same as the entered address",
-    "download nas nano": "Download NAS nano Pro"
+    "notice wallet address and query address": "Confirm & scan to transfer",
+    "download nas nano": "Download NAS nano Pro" 
 }

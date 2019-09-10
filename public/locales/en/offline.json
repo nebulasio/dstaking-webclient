@@ -1,8 +1,8 @@
 {
     "online computer": "Connect your computer to internet",
     "offline computer": "Keep your computer offline",
-    "get account state": "Get account state",
-    "generate offline  raw tx": "Generate raw offline transaction",
+    "get account state": "Check dStaking status",
+    "generate offline  raw tx": "Generate offline raw transaction",
     "send tx": "Submit raw transaction",
     "select keystore": "Select your keystore file",
     "keystore format wrong": "Your keystore file format is incorrect. Please verify you have selected the correct file and try again.",

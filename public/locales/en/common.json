@@ -1,8 +1,8 @@
 {
     "download":"Download the web client",
-    "online staking": "Online staking",
-    "offline staking": "Offline staking",
-    "query": "Check dStaking status",
+    "online staking": "Online dStaking",
+    "offline staking": "Offline dStaking",
+    "query": "Check",
     "wallet address can not empty": "Please enter NAS address (n1xxx)",
     "wallet address is invalid": "NAS address: n1xxx",
     "wallet balance": "Wallet balance",
@@ -12,5 +12,5 @@
     "min staking": "Minimum NAS ",
     "cancel staking": "Cancel all dStaking",
     "go to explorer": "Go to explorer",
-    "staking-note": "<p>Pledge notice</p><ul><li>The assets that the user participates in the pledge still exist in their own wallet.</li><li>At the beginning of each cycle (about 25 hours), NAX will be dynamically issued to the pledge address according to the pledge rate of the whole network in the previous cycle.</li><li>The more NAS that are pledged in the wallet, the longer the continuous pledge cycle (coin age), the more NAX is obtained.</li><li>If the pledge is reduced or the pledge is cancelled, the age of the coin will return to the initial state, and the additional pledge will calculate the average coin age.</li><li>When the wallet balance is less than the actual pledge, the pledge status is automatically released.</li></ul>"
+    "staking-note": "<p>Tips:</p><ul><li>The assets that the user participates in the pledge still exist in their own wallets.</li><li>At the beginning of each cycle (about 25 hours), NAX will be dynamically issued to the pledge address according to the pledge rate of the whole network in the previous cycle.</li><li>The more NAS that are pledged in the wallet, the longer the continuous pledge cycle (coin age), the more NAX is obtained.</li><li>If the pledge is reduced or the pledge is cancelled, the age of the coin will return to the initial state, and the additional pledge will calculate the average coin age.</li><li>When the wallet balance is less than the actual pledge, the pledge status is automatically released.</li></ul>"
 }
