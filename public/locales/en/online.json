@@ -1,7 +1,6 @@
 {
     "query staking status": "Check dStaking status",
     "staking type": "Select one way to dStaking",
-    "NAS nano": "NAS nano Pro",
     "nebulas chrome ext": "Nebulas Chrome Extension",
     "get nebulas ext": "Get the Nebulas Chrome Extension, refresh this page after installed",
     "other wallet": "Others wallet",
