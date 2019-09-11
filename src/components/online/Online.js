@@ -320,7 +320,7 @@ class Online extends Component {
 
                     <FormGroup>
                         <Label>{t("staking type")}</Label>
-                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-nano" name="radio-staking-start" label="NAS nano" />
+                        <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-nano" name="radio-staking-start" label="NAS nano Pro" />
                         <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-nas-ext" name="radio-staking-start" label={t("nebulas chrome ext")} />
                         {/* <CustomInput onClick={e => this.handleStakingType(e)} type="radio" id="radio-third-wallet" name="radio-staking-start" label={t("other wallet")} /> */}
                     </FormGroup>
