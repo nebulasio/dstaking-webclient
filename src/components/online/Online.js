@@ -266,7 +266,7 @@ class Online extends Component {
                 {(stakingSelect === "1" || stakingType === "nas-ext") &&
                     <FormGroup>
                         <Button color="primary" size="lg" disabled={this.isDisableSubmit()} block onClick={this.handleSubmit}>
-                            {t("staking")}
+                            {t("staking btn")}
                         </Button>
                     </FormGroup>
                 }
@@ -330,7 +330,7 @@ class Online extends Component {
                 </Form>
             </Wrapper>
         )
-    }
+   }
 
 }
 

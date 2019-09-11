@@ -1,6 +1,7 @@
 {
     "query staking status": "查询质押状态",
     "staking type": "选择质押方式",
+    "staking btn":"质押",
     "nebulas chrome ext": "Nebulas谷歌插件钱包",
     "get nebulas ext": "请先获取Nebulas谷歌插件钱包，安装后刷新本页",
     "other wallet": "第三方钱包",
