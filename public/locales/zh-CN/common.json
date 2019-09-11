@@ -8,7 +8,7 @@
     "wallet balance": "钱包余额",
     "already staking": "已质押",
     "type wallet address": "请输入NAS钱包地址",
-    "staking": "调整质押数量",
+    "staking": "输入质押额度",
     "min staking": "最小质押额",
     "cancel staking": "取消该地址的质押",
     "go to explorer": "去浏览器查看",
